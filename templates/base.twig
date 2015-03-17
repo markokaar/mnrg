@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+<head>
+    {% block head %}
+    <title>{% block title %}M.NRG{% endblock %}</title>
+    <link rel="icon" type="image/png" href="img/favicon.ico">
+
+    <meta name="description" content="Mobile nrg.tartu.ee">
+    <meta name="keywords" content="mobile, nrg, Nõo Reaalgümnaasium">
+    <meta name="author" content="Marko Käär">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+
+        {% block style %}
+        <!--<link rel='stylesheet' type='text/css' href='bootstrap/css/bootstrap.min.css'>
+        <link rel='stylesheet' type='text/css' href='bootstrap/css/bootstrap.css'>-->
+        <link rel='stylesheet' type='text/css' href='/mnrg/css/style.css'>
+        {% endblock %}
+    {% endblock %}
+</head>
+
+<div id='wrap'>
+    <div id='header'>
+        <a href='/mnrg/index.php' alt='M_NRG'>Header</a>
+
+        {% block menu %}
+            <div id='menu-button'>
+                <nav>
+                    <a href='#' alt='menu'>
+                        <img src='/mnrg/img/menu_button.png' alt='' width='50px'>
+                    </a>
+                    <ul>
+                        <li><a href="/mnrg/index.php" class="current">Avaleh2t</a></li>
+                        <li><a href="/mnrg/index.php/tunniplaan">Tunniplaan</a></li>
+                        <li><a href="/mnrg/index.php/menyy">Menüü</a></li>
+                        <li><a href="/mnrg/index.php/teated">Teated</a></li>
+                        <li><a href="https://nrg.ope.ee/">Stuudium</a></li>
+                        <!--<div id='menu-blackbg'></div>-->
+                    </ul>
+                </nav>
+            </div>
+        {% endblock %}
+
+    </div>
+
+    <div id='content'>
+        {% block content %} {% endblock %}
+    </div>
+
+    <div id='footer'>
+        Footer<br>
+        Footer2 <br>
+    </div>
+</div> <!-- Wrap l6pp -->
+
+</body>
+</html>

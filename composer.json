@@ -1,0 +1,17 @@
+{
+    "name": "marko/mnrg",
+    "description": "mobile version of NRG",
+    "authors": [
+        {
+            "name": "Marko Kaar",
+            "email": "kaarmarko@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "1.6.5",
+        "j4mie/paris": "v1.5.4",
+        "slim/slim": "2.5.0",
+        "slim/views": "0.1.3",
+        "smalot/pdfparser": "v0.9.22"
+    }
+}

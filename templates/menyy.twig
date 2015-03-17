@@ -1,0 +1,17 @@
+{% extends 'base.twig' %}
+
+{% block title %} {{  parent() }} - Menüü {% endblock %}
+
+{% block content %}
+    <div class='block'>
+        <p>Siia tuleb alguses nädala menüü, hiljem ka päevad eraldi.</p>
+        <h2>Menüü</h2>
+
+        <!-- index.php failis toimub pdf-parsing, kasutab nrg kodulehe menyy.pdf -->
+        {% autoescape false %}
+            {{ menyy|nl2br }}
+        {% endautoescape %}
+
+    </div>
+{% endblock %}
+
