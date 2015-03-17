@@ -27,5 +27,5 @@ $app->get('/teated', function () use ($app){
     $app->render('teated.twig');
 });
 
-//wwwarat4
+//töötab vist?
 $app->run();
