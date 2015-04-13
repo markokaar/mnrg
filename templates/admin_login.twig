@@ -1,0 +1,27 @@
+{% extends 'web_base.twig' %}
+
+{% block title %} {{  parent() }} - Avaleht {% endblock %}
+
+{% block menu %}{% endblock %}
+
+{% block content %}
+
+ <center>
+    <h1>Admin-paneel</h1>
+
+    {% if error %}
+        Vale kasutajanimi või parool!
+    {% endif %}
+
+    <div id='loginbox'>
+        <h2>Logi sisse</h2>
+        <form method='POST' action='/mnrg/admin/authenticate'>
+            <table border='0' align='center'>
+                <tr><td>Kasutajanimi</td><td><input type='text' name='username'></td></tr>
+                <tr><td>Parool</td><td><input type='password' name='password'></td></tr>
+                <tr><td colspan='2'><center><button type='submit'>Logi sisse</button></center></td></tr>
+            </table>
+        </form>
+    </div>
+</center>
+{% endblock %}

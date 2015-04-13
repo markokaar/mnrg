@@ -4,9 +4,11 @@ require_once 'vendor/autoload.php';
 
 define('DEBUG', true);
 
-//ORM::configure('mysql:host=localhost;dbname=minitwitter');
-//ORM::configure('username', 'root');
-//ORM::configure('password', '');
+ORM::configure('mysql:host=localhost;dbname=mnrg');
+ORM::configure('username', 'root');
+ORM::configure('password', '');
+
+session_start();
 
 //ORM::configure('driver_options', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
 
