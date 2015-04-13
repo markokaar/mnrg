@@ -27,6 +27,30 @@ $app->get('/teated', function () use ($app){
     $app->render('teated.twig');
 });
 
+$app->get('/admin/', function () use ($app){
+    $app->render('admin.twig');
+});
+
+$app->get('/admin/menyy', function () use ($app){
+    $app->render('menyy.twig');
+});
+
+$app->get('/admin/tunniplaan', function () use ($app){
+    $app->render('menyy.twig');
+});
+
+$app->get('/admin/teated', function () use ($app){
+    $app->render('menyy.twig');
+});
+
+$app->get('/admin/seaded', function () use ($app){
+    $app->render('menyy.twig');
+});
+
+$app->get('/admin/logout', function () use ($app){
+    header("Location: index.php");
+});
+
 $app->get('/ajutine-menyy', function() {
     echo json_encode([
         '14.04.2015' => ['menyy']
