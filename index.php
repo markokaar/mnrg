@@ -27,5 +27,11 @@ $app->get('/teated', function () use ($app){
     $app->render('teated.twig');
 });
 
+$app->get('/ajutine-menyy', function() {
+    echo json_encode([
+        '14.04.2015' => ['menyy']
+    ]);
+});
+
 
 $app->run();
