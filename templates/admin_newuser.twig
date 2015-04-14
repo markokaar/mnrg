@@ -3,10 +3,37 @@
 {% block title %} {{  parent() }} - Uue kasutaja lisamine {% endblock %}
 
 {% block content %}
-    <div class='block'>
-        <h3>Admin-paneel - Uue kasutaja lisamine</h3>
+
+        <div class='contentleft'>
+            <h2>Uue kasutaja lisamine admin-paneelile</h2>
+            <form method='POST' action='/mnrg/admin/new_user/sisesta'>
+                <table border='0'>
+                    <tr><td>Kasutajanimi</td><td><input type='text' name='name'></td></tr>
+                    <tr><td>E-Mail</td><td><input type='text' name='email'></td></tr>
+                    <tr><td>Kasutaja Parool</td><td>{{ randomparool }}<input type='hidden' value='{{ randomparool }}' name='password'></td></tr>
+                    <tr><td>Sinu parool</td><td><input type='password' name='yourpassword'></td></tr>
+                    <tr><td colspan='2'><center><button type='submit'>Lisa kasutaja</button></center></td></tr>
+                </table>
+            </form>
+
+            <h2>Admin-kasutaja eemaldamine</h2>
+            <form method='POST' action="/mnrg/admin/new_user/delete">
+                <table border="0">
+                    <tr><td>Kasutaja ID</td><td><input type="text" name="id_delete"></td></tr>
+                    <tr><td colspan="2"><button type="submit">Kustuta kasutaja</button></td></tr>
+                </table>
+            </form>
+        </div>
+
+        <div class='contentright'>
+            <h2>Kasutajad</h2>
+            <table border="0">
+                <tr><td>ID</td><td>Nimi</td><td>e-mail</td><td>Access level</td></tr>
+                {% for k in kasutaja %}
+                    <tr><td>{{ k.id }}.</td><td>{{ k.name }}</td><td>{{ k.email }}</td><td>{{ k.access }}</td></tr>
+                {% endfor %}
+            </table>
+        </div>
 
 
-
-    </div>
 {% endblock %}

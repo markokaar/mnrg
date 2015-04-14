@@ -73,12 +73,14 @@ body{
 }
 
 .contentleft{
+	position: relative;
 	float: left;
 	width: 475px;
 	margin-top: 10px;
 }
 
 .contentright{
+	position: relative;
 	float: right;
 	width: 475px;
 	margin-top: 10px;

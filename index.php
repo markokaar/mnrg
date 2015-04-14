@@ -104,14 +104,45 @@ $app->get('/admin/seaded', function () use ($app){
 
 $app->get('/admin/new_user', function () use ($app){
     if(isset($_SESSION['username'])) {
+        $kasutajad = ORM::for_table('users')->find_many();
         $app->render('admin_newuser.twig', array(
             'kasutajanimi' => $_SESSION['username'],
-            'access' => $_SESSION['access']
+            'access' => $_SESSION['access'],
+            'randomparool' => rand(100000,999999),
+            'kasutaja' => $kasutajad
         ));
     }
     else{
         $app -> redirect('/mnrg/admin/login');
     }
+});
+
+$app->post('/admin/new_user/delete', function() use ($app){
+    if(isset($_SESSION['username'])) {
+        $kasutaja = ORM::for_table('users')
+            ->where_equal('id', $_POST['id_delete'])
+            ->delete_many();
+
+        $app -> redirect('/mnrg/admin/new_user');
+    }
+    else{
+        $app -> redirect('/mnrg/admin/login');
+    }
+});
+
+$app->post('/admin/new_user/sisesta', function () use ($app){
+    $salt = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 5)), 0, 5); //Loob suvalise 5-margilise salti
+    $password = $_POST['password'];
+    $newpassword = sha1($password + $salt);
+
+    $uuskasutaja = ORM::for_table('users')->create();
+    $uuskasutaja->name = $_POST['name'];
+    $uuskasutaja->email = $_POST['email'];
+    $uuskasutaja->password = $newpassword;
+    $uuskasutaja->salt = $salt;
+    $uuskasutaja->save();
+
+    $app -> redirect('/mnrg/admin/new_user');
 });
 
 $app->get('/admin/login', function () use ($app){
