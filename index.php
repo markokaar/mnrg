@@ -130,6 +130,19 @@ $app->post('/admin/new_user/delete', function() use ($app){
     }
 });
 
+
+$app->post('/admin/new_user/update', function() use ($app){
+    if(isset($_SESSION['username'])) {
+        $kasutaja = ORM::for_table('users')->where_equal('id', $_POST['id_update'])->find_one();
+        $kasutaja->set('access', $_POST['access']);
+        $kasutaja->save();
+        $app -> redirect('/mnrg/admin/new_user');
+    }
+    else{
+        $app -> redirect('/mnrg/admin/login');
+    }
+});
+
 $app->post('/admin/new_user/sisesta', function () use ($app){
     $salt = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 5)), 0, 5); //Loob suvalise 5-margilise salti
     $password = $_POST['password'];
@@ -207,10 +220,9 @@ $app->post('/admin/authenticate', function () use ($app){
 
     $salt = $person -> salt;
     $dbpassword = $person -> password;
-
     $realpassword = sha1($password + $salt);
 
-    if(!$person){$app -> redirect('/mnrg/admin/login/error');}
+    if(!$person){ $app -> redirect('/mnrg/admin/login/error'); }
     if($dbpassword != $realpassword){ $app -> redirect('/mnrg/admin/login/error');}
 
     $_SESSION["username"] = $username;

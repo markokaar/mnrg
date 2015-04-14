@@ -23,7 +23,19 @@
                     <tr><td colspan="2"><button type="submit">Kustuta kasutaja</button></td></tr>
                 </table>
             </form>
+
+            <h2>Admin-kasutaja access-level</h2>
+            <form method='POST' action="/mnrg/admin/new_user/update">
+                <table border="0">
+                    <tr><td>Kasutaja ID</td><td><input type="text" name="id_update"></td></tr>
+                    <tr><td>Access-level</td><td><input type="text" name="access"></td></tr>
+                    <tr><td colspan="2"><button type="submit">Uuenda kasutajat</button></td></tr>
+                </table>
+            </form>
         </div>
+
+
+
 
         <div class='contentright'>
             <h2>Kasutajad</h2>
