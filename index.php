@@ -7,7 +7,18 @@ $app->get('/', function() use ($app){
 });
 
 $app->get('/tunniplaan', function () use ($app){
-    $app->render('tunniplaan.twig');
+    if(isset($_GET['klass'])) {
+        $tund = ORM::for_table('tunniplaan')->where('klass', $_GET['klass'])->find_many();
+
+        $app->render('tunniplaan.twig', array(
+            'klass' => $_GET['klass'],
+            'tund' => $tund,
+            'paevad' => array('Esmaspaev', 'Teisipaev', 'Kolmapaev', 'Neljapaev', 'Reede')
+        ));
+    }
+    else{
+        $app->render('tunniplaan.twig');
+    }
 });
 
 $app->get('/menyy', function () use ($app){
@@ -44,7 +55,10 @@ $app->get('/admin/', function () use ($app){
 
 $app->get('/admin/menyy', function () use ($app){
     if(isset($_SESSION['username'])) {
-        $app->render('menyy.twig');
+        $app->render('admin_menyy.twig', array(
+            'kasutajanimi' => $_SESSION['username'],
+            'access' => $_SESSION['access']
+        ));
     }
     else{
         $app -> redirect('/mnrg/admin/login');
@@ -53,7 +67,10 @@ $app->get('/admin/menyy', function () use ($app){
 
 $app->get('/admin/tunniplaan', function () use ($app){
     if(isset($_SESSION['username'])) {
-        $app->render('menyy.twig');
+        $app->render('admin_tunniplaan.twig', array(
+            'kasutajanimi' => $_SESSION['username'],
+            'access' => $_SESSION['access']
+        ));
     }
     else{
         $app -> redirect('/mnrg/admin/login');
@@ -62,7 +79,10 @@ $app->get('/admin/tunniplaan', function () use ($app){
 
 $app->get('/admin/teated', function () use ($app){
     if(isset($_SESSION['username'])) {
-        $app->render('menyy.twig');
+        $app->render('admin_teated.twig', array(
+            'kasutajanimi' => $_SESSION['username'],
+            'access' => $_SESSION['access']
+        ));
     }
     else{
         $app -> redirect('/mnrg/admin/login');
@@ -71,7 +91,10 @@ $app->get('/admin/teated', function () use ($app){
 
 $app->get('/admin/seaded', function () use ($app){
     if(isset($_SESSION['username'])) {
-        $app->render('menyy.twig');
+        $app->render('admin_seaded.twig', array(
+            'kasutajanimi' => $_SESSION['username'],
+            'access' => $_SESSION['access']
+        ));
     }
     else{
         $app -> redirect('/mnrg/admin/login');
@@ -80,7 +103,10 @@ $app->get('/admin/seaded', function () use ($app){
 
 $app->get('/admin/new_user', function () use ($app){
     if(isset($_SESSION['username'])) {
-        $app->render('menyy.twig');
+        $app->render('admin_newuser.twig', array(
+            'kasutajanimi' => $_SESSION['username'],
+            'access' => $_SESSION['access']
+        ));
     }
     else{
         $app -> redirect('/mnrg/admin/login');
@@ -97,6 +123,32 @@ $app->get('/admin/login/error', function () use ($app){
     $app->render('admin_login.twig', array(
         'error' => $error
     ));
+});
+
+$app->post('/admin/tunniplaan/sisesta', function () use ($app){
+    $klass = $_POST['klass'];
+    $paev = $_POST['paev'];
+
+    $tunnid = array($_POST['tund1'],$_POST['tund2'],$_POST['tund3'],$_POST['tund4'],$_POST['tund5'],$_POST['tund6'],$_POST['tund7'],$_POST['tund8'],$_POST['tund9'],$_POST['tund10']);
+    $ruumid = array($_POST['ruum1'],$_POST['ruum2'],$_POST['ruum3'],$_POST['ruum4'],$_POST['ruum5'],$_POST['ruum6'],$_POST['ruum7'],$_POST['ruum8'],$_POST['ruum9'],$_POST['ruum10']);
+    $tund1 = $_POST['tund1'];
+
+    for( $n=0; $n<=9; $n++ ){
+        $tunniplaan = ORM::for_table('tunniplaan')->create();
+
+        if($tunnid[$n] != '') {
+            $tunniplaan->klass = $klass;
+            $tunniplaan->paev = $paev;
+            $tunniplaan->username = $_SESSION['username'];
+
+            $tunniplaan->tund_nr = $n + 1;
+            $tunniplaan->tund = $tunnid[$n];
+            $tunniplaan->ruum = $ruumid[$n];
+            $tunniplaan->save();
+        }
+    }
+    
+    $app -> redirect('/mnrg/admin/tunniplaan');
 });
 
 $app->post('/admin/authenticate', function () use ($app){

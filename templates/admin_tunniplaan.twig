@@ -1,0 +1,56 @@
+{% extends 'web_base.twig' %}
+
+{% block title %} {{  parent() }} - Avaleht {% endblock %}
+
+{% block content %}
+    <div class='block'>
+        <h3>Admin-paneel - tunniplaan</h3>
+
+        <form action="/mnrg/admin/tunniplaan/sisesta" method="POST">
+            <table border='0'>
+                <tr><td>Klass</td>
+                    <td colspan="2">
+                        <select name="klass">
+                            <option value="10.a">10.a</option>
+                            <option value="10.b">10.b</option>
+                            <option value="10.c">10.c</option>
+                            <option value="11.a">11.a</option>
+                            <option value="11.b">11.b</option>
+                            <option value="11.c">11.c</option>
+                            <option value="12.a">12.a</option>
+                            <option value="12.b">12.b</option>
+                            <option value="12.c">12.c</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr><td>Päev</td>
+                    <td colspan="2">
+                        <select name="paev">
+                            <option value="Esmaspäev">Esmaspäev</option>
+                            <option value="Teisipäev">Teisipäev</option>
+                            <option value="Kolmapäev">Kolmapäev</option>
+                            <option value="Neljapäev">Neljapäev</option>
+                            <option value="Reede">Reede</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr><td>&nbsp;</td></tr>
+                <tr><td>Tunni nr.</td><td>Tund</td><td>Ruum</td></tr>
+                <tr><td>1.</td><td><input type="text" name="tund1"></td><td><input type="text" name="ruum1"></td></tr>
+                <tr><td>2.</td><td><input type="text" name="tund2"></td><td><input type="text" name="ruum2"></td></tr>
+                <tr><td>3.</td><td><input type="text" name="tund3"></td><td><input type="text" name="ruum3"></td></tr>
+                <tr><td>4.</td><td><input type="text" name="tund4"></td><td><input type="text" name="ruum4"></td></tr>
+                <tr><td>5.</td><td><input type="text" name="tund5"></td><td><input type="text" name="ruum5"></td></tr>
+                <tr><td>6.</td><td><input type="text" name="tund6"></td><td><input type="text" name="ruum6"></td></tr>
+                <tr><td>7.</td><td><input type="text" name="tund7"></td><td><input type="text" name="ruum7"></td></tr>
+                <tr><td>8.</td><td><input type="text" name="tund8"></td><td><input type="text" name="ruum8"></td></tr>
+                <tr><td>9.</td><td><input type="text" name="tund9"></td><td><input type="text" name="ruum9"></td></tr>
+                <tr><td>10.</td><td><input type="text" name="tund10"></td><td><input type="text" name="ruum10"></td></tr>
+
+                <tr><td><input type="submit" value="Sisesta"></td></tr>
+            </table>
+        </form>
+
+    </div>
+{% endblock %}
