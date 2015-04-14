@@ -8,4 +8,11 @@
         <p>Siia hakkame kuvama teateid ja tundide muudatusi.
         </p>
     </div>
+
+    {% for t in teade %}
+        <div class="block">
+            {{ t.content }}
+            <br><br>- {{ t.date }}
+        </div>
+    {% endfor %}
 {% endblock %}

@@ -5,7 +5,7 @@
 {% block content %}
     <div class='block'>
         <h3>Admin-paneel - tunniplaan</h3>
-
+        <small>Uleliigsed lahtrid jata tuhjaks!</small>
         <form action="/mnrg/admin/tunniplaan/sisesta" method="POST">
             <table border='0'>
                 <tr><td>Klass</td>
@@ -26,17 +26,17 @@
                 <tr><td>Päev</td>
                     <td colspan="2">
                         <select name="paev">
-                            <option value="Esmaspäev">Esmaspäev</option>
-                            <option value="Teisipäev">Teisipäev</option>
-                            <option value="Kolmapäev">Kolmapäev</option>
-                            <option value="Neljapäev">Neljapäev</option>
+                            <option value="Esmaspaev">Esmaspäev</option>
+                            <option value="Teisipaev">Teisipäev</option>
+                            <option value="Kolmapaev">Kolmapäev</option>
+                            <option value="Neljapaev">Neljapäev</option>
                             <option value="Reede">Reede</option>
                         </select>
                     </td>
                 </tr>
 
                 <tr><td>&nbsp;</td></tr>
-                <tr><td>Tunni nr.</td><td>Tund</td><td>Ruum</td></tr>
+                <tr><td><b>Tunni nr.</b></td><td><b>Tund</b></td><td><b>Ruum</b></td></tr>
                 <tr><td>1.</td><td><input type="text" name="tund1"></td><td><input type="text" name="ruum1"></td></tr>
                 <tr><td>2.</td><td><input type="text" name="tund2"></td><td><input type="text" name="ruum2"></td></tr>
                 <tr><td>3.</td><td><input type="text" name="tund3"></td><td><input type="text" name="ruum3"></td></tr>

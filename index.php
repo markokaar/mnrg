@@ -34,7 +34,10 @@ $app->get('/menyy', function () use ($app){
 });
 
 $app->get('/teated', function () use ($app){
-    $app->render('teated.twig');
+    $teade = ORM::for_table('teated')->find_many(2);
+    $app->render('teated.twig', array(
+        'teade' => $teade
+    ));
 });
 
 
@@ -77,10 +80,13 @@ $app->get('/admin/tunniplaan', function () use ($app){
 });
 
 $app->get('/admin/teated', function () use ($app){
+
+    $teade = ORM::for_table('teated')->find_many(2);
     if(isset($_SESSION['username'])) {
         $app->render('admin_teated.twig', array(
             'kasutajanimi' => $_SESSION['username'],
-            'access' => $_SESSION['access']
+            'access' => $_SESSION['access'],
+            'teade' => $teade
         ));
     }
     else{
@@ -124,6 +130,18 @@ $app->get('/admin/login/error', function () use ($app){
     ));
 });
 
+$app->post('/admin/teated/sisesta', function () use ($app){
+    $teated = ORM::for_table('teated')->create();
+
+    $teated->username = $_SESSION['username'];
+    $teated->content = $_POST['content'];
+    $teated->date = date('l\, jS \of F Y H:i');
+    $teated->save();
+
+    $app -> redirect('/mnrg/admin/teated');
+});
+
+
 $app->post('/admin/tunniplaan/sisesta', function () use ($app){
     $klass = $_POST['klass'];
     $paev = $_POST['paev'];
@@ -132,21 +150,24 @@ $app->post('/admin/tunniplaan/sisesta', function () use ($app){
     $ruumid = array($_POST['ruum1'],$_POST['ruum2'],$_POST['ruum3'],$_POST['ruum4'],$_POST['ruum5'],$_POST['ruum6'],$_POST['ruum7'],$_POST['ruum8'],$_POST['ruum9'],$_POST['ruum10']);
     $tund1 = $_POST['tund1'];
 
+    //Kui on andmebaasis sellel klassil selle p2eva peal tunde, kustutab need
+    $person = ORM::for_table('tunniplaan')
+        ->where_equal('klass', $klass, 'paev', $paev)
+        ->delete_many();
+
+    //Lisab andmebaasi uued andmed
     for( $n=0; $n<=9; $n++ ){
         $tunniplaan = ORM::for_table('tunniplaan')->create();
-
         if($tunnid[$n] != '') {
             $tunniplaan->klass = $klass;
             $tunniplaan->paev = $paev;
             $tunniplaan->username = $_SESSION['username'];
-
             $tunniplaan->tund_nr = $n + 1;
             $tunniplaan->tund = $tunnid[$n];
             $tunniplaan->ruum = $ruumid[$n];
             $tunniplaan->save();
         }
     }
-
     $app -> redirect('/mnrg/admin/tunniplaan');
 });
 

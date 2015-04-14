@@ -30,10 +30,10 @@
                 <a href='/mnrg/admin/tunniplaan'><div class='menublock'>Tunniplaan</div></a>
                 <a href='/mnrg/admin/menyy'><div class='menublock'>Menüü</div></a>
                 <a href='/mnrg/index.php/admin/teated'><div class='menublock'>Teated</div></a>
-                {% if access == 3 %}<a href='/mnrg/admin/new_user'><div class='menublock'>Lisa kasutaja</div></a>"; {% endif %}
+                {% if access == 3 %}<a href='/mnrg/admin/new_user'><div class='menublock'>Lisa kasutaja</div></a> {% endif %}
                 <a href='/mnrg/index.php/admin/seaded'><div class='menublock'>Seaded</div></a>
                 <a href='/mnrg/index.php/admin/logout'><div class='menublock'>LOGI VÄLJA</div></a>
-                &nbsp;&nbsp;<span style='font-size:16px; color:white'>Sisse logitud, kui <b>{{ kasutajanimi }}</b>.</span>;
+                &nbsp;&nbsp;<span style='font-size:16px; color:white'>Sisse logitud, kui <b>{{ kasutajanimi }}</b>.</span>
             </div>
         {% endblock %}
 

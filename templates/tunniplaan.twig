@@ -27,6 +27,7 @@
         <div class="block">
             <center>
                 {% for p in paevad %}
+                    <div class="tunniplaan_taust">
                     <h2>{{ p }}</h2>
                     <table border="0">
                         {% for t in tund %}
@@ -35,6 +36,7 @@
                             {% endif %}
                         {% endfor %}
                     </table>
+                    </div>
                 {% endfor %}
             </center>
         </div>
