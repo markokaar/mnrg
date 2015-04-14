@@ -12,7 +12,8 @@
     {% for t in teade %}
         <div class="block">
             {{ t.content }}
-            <br><br>- {{ t.date }}
+            <br><br><br><b>{{ t.username }}</b>
+            <br>{{ t.date }}
         </div>
     {% endfor %}
 {% endblock %}

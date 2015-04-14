@@ -1,7 +1,6 @@
 <?php
 require_once 'app.php';
 
-
 $app->get('/', function() use ($app){
     $app->render('index.twig');
 });
@@ -23,11 +22,8 @@ $app->get('/tunniplaan', function () use ($app){
 $app->get('/menyy', function () use ($app){
     $parser = new \Smalot\PdfParser\Parser();
     $pdf    = $parser->parseFile('http://nrg.tartu.ee/dokumendid/menyy.pdf');
-
     $text = $pdf->getText();
-
     $text = str_replace("Esmaspäev","<b>Esmaspäev</b>",$text);
-
     $app->render('menyy.twig', array(
         'menyy' => $text
     ));
@@ -39,6 +35,7 @@ $app->get('/teated', function () use ($app){
         'teade' => $teade
     ));
 });
+
 
 
 //Admin-paneel
@@ -80,8 +77,7 @@ $app->get('/admin/tunniplaan', function () use ($app){
 });
 
 $app->get('/admin/teated', function () use ($app){
-
-    $teade = ORM::for_table('teated')->find_many(2);
+    $teade = ORM::for_table('teated')->find_many();
     if(isset($_SESSION['username'])) {
         $app->render('admin_teated.twig', array(
             'kasutajanimi' => $_SESSION['username'],
@@ -124,7 +120,6 @@ $app->get('/admin/login', function () use ($app){
 
 $app->get('/admin/login/error', function () use ($app){
     $error = True;
-
     $app->render('admin_login.twig', array(
         'error' => $error
     ));
@@ -203,6 +198,5 @@ $app->get('/ajutine-menyy', function() {
         '14.04.2015' => ['menyy']
     ]);
 });
-
 
 $app->run();
