@@ -4,7 +4,7 @@
 
 {% block content %}
     <div class='block'>
-        <h3>Tunniplaan</h3>
+        <h2>Tunniplaan</h2>
         <p>Vali klass..
         </p>
         <form action="/mnrg/tunniplaan" method="GET">
@@ -23,18 +23,20 @@
         </form>
     </div>
 
-    <div class="block">
-        <center>
-            {% for p in paevad %}
-                <h3>{{ p }}</h3>
-                <table border="0">
-                    {% for t in tund %}
-                        {% if p == t.paev %}
-                            <tr><td>{{ t.tund_nr }}.</td><td>{{ t.tund }} </td><td>{{ t.ruum }}</td></tr>
-                        {% endif %}
-                    {% endfor %}
-                </table>
-            {% endfor %}
-        </center>
-    </div>
+    {% if paevad != '' %}
+        <div class="block">
+            <center>
+                {% for p in paevad %}
+                    <h2>{{ p }}</h2>
+                    <table border="0">
+                        {% for t in tund %}
+                            {% if p == t.paev %}
+                                <tr><td>{{ t.tund_nr }}.</td><td>{{ t.tund }} </td><td>{{ t.ruum }}</td></tr>
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                {% endfor %}
+            </center>
+        </div>
+    {% endif %}
 {% endblock %}

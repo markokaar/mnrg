@@ -9,7 +9,6 @@ $app->get('/', function() use ($app){
 $app->get('/tunniplaan', function () use ($app){
     if(isset($_GET['klass'])) {
         $tund = ORM::for_table('tunniplaan')->where('klass', $_GET['klass'])->find_many();
-
         $app->render('tunniplaan.twig', array(
             'klass' => $_GET['klass'],
             'tund' => $tund,
@@ -147,7 +146,7 @@ $app->post('/admin/tunniplaan/sisesta', function () use ($app){
             $tunniplaan->save();
         }
     }
-    
+
     $app -> redirect('/mnrg/admin/tunniplaan');
 });
 
