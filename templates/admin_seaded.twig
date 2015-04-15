@@ -6,7 +6,26 @@
     <div class='block'>
         <h3>Admin-paneel - Kasutaja seaded</h3>
 
+        <div class="contentleft">
+        <h3>Parooli uuendamine</h3>
+            <form method='POST' action="/mnrg/admin/seaded/update">
+                <table border="0">
+                    <tr><td>Uus parool</td><td><input type="password" name="password"></td></tr>
+                    <tr><td>Korda parooli</td><td><input type="password" name="password2"></td></tr>
+                    <tr><td>&nbsp;</td></tr>
+                    <tr><td>Praegune parool</td><td><input type="password" name="password_now"></td></tr>
+                    <tr><td colspan="2"><button type="submit">Muuda parool</button></td></tr>
+                </table>
+            </form>
+        </div>
 
+        <div class="contentright">
+            <h2>Kasutaja info</h2>
+            <table border="0">
+                <tr><td><b>Kasutajanimi:</b></td><td>{{ kasutaja.name }}</td></tr>
+                <tr><td><b>E-mail:</b></td><td>{{ kasutaja.email }}</td></tr>
+            </table>
+        </div>
 
     </div>
 {% endblock %}

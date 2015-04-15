@@ -1,6 +1,7 @@
 <?php
 require_once 'app.php';
 
+//Web-osa
 $app->get('/', function() use ($app){
     $app->render('index.twig');
 });
@@ -24,6 +25,7 @@ $app->get('/menyy', function () use ($app){
     $pdf    = $parser->parseFile('http://nrg.tartu.ee/dokumendid/menyy.pdf');
     $text = $pdf->getText();
     $text = str_replace("Esmaspäev","<b>Esmaspäev</b>",$text);
+
     $app->render('menyy.twig', array(
         'menyy' => $text
     ));
@@ -49,7 +51,6 @@ $app->get('/admin/', function () use ($app){
     else{
         $app -> redirect('/mnrg/admin/login');
     }
-
 });
 
 $app->get('/admin/menyy', function () use ($app){
@@ -92,10 +93,30 @@ $app->get('/admin/teated', function () use ($app){
 
 $app->get('/admin/seaded', function () use ($app){
     if(isset($_SESSION['username'])) {
+        $kasutaja = ORM::for_table('users')->where('name',$_SESSION['username'])->find_one();
         $app->render('admin_seaded.twig', array(
             'kasutajanimi' => $_SESSION['username'],
-            'access' => $_SESSION['access']
+            'access' => $_SESSION['access'],
+            'kasutaja' => $kasutaja
         ));
+    }
+    else{
+        $app -> redirect('/mnrg/admin/login');
+    }
+});
+
+$app->post('/admin/seaded/update', function() use ($app){
+    if(isset($_SESSION['username'])) {
+        $salt = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 5)), 0, 5); //Loob suvalise 5-margilise salti
+        $password = $_POST['password'];
+        $newpassword = sha1($password + $salt);
+
+        $kasutaja = ORM::for_table('users')->where_equal('name', $_SESSION['username'])->find_one();
+        $kasutaja->set('password', $newpassword);
+        $kasutaja->set('salt', $salt);
+        $kasutaja->save();
+
+        $app -> redirect('/mnrg/admin/seaded');
     }
     else{
         $app -> redirect('/mnrg/admin/login');
@@ -171,7 +192,6 @@ $app->get('/admin/login/error', function () use ($app){
 
 $app->post('/admin/teated/sisesta', function () use ($app){
     $teated = ORM::for_table('teated')->create();
-
     $teated->username = $_SESSION['username'];
     $teated->content = $_POST['content'];
     $teated->date = date('l\, jS \of F Y H:i');
@@ -184,7 +204,6 @@ $app->post('/admin/teated/sisesta', function () use ($app){
 $app->post('/admin/tunniplaan/sisesta', function () use ($app){
     $klass = $_POST['klass'];
     $paev = $_POST['paev'];
-
     $tunnid = array($_POST['tund1'],$_POST['tund2'],$_POST['tund3'],$_POST['tund4'],$_POST['tund5'],$_POST['tund6'],$_POST['tund7'],$_POST['tund8'],$_POST['tund9'],$_POST['tund10']);
     $ruumid = array($_POST['ruum1'],$_POST['ruum2'],$_POST['ruum3'],$_POST['ruum4'],$_POST['ruum5'],$_POST['ruum6'],$_POST['ruum7'],$_POST['ruum8'],$_POST['ruum9'],$_POST['ruum10']);
     $tund1 = $_POST['tund1'];
@@ -217,7 +236,6 @@ $app->post('/admin/authenticate', function () use ($app){
     if(!$username || !$password){ redirect('/mnrg/admin/login/error'); }
 
     $person = ORM::for_table('users')->where('name', $username)->find_one();
-
     $salt = $person -> salt;
     $dbpassword = $person -> password;
     $realpassword = sha1($password + $salt);

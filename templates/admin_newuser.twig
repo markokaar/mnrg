@@ -3,20 +3,19 @@
 {% block title %} {{  parent() }} - Uue kasutaja lisamine {% endblock %}
 
 {% block content %}
-
         <div class='contentleft'>
-            <h2>Uue kasutaja lisamine admin-paneelile</h2>
+            <h3>Uue kasutaja lisamine admin-paneelile</h3>
             <form method='POST' action='/mnrg/admin/new_user/sisesta'>
                 <table border='0'>
                     <tr><td>Kasutajanimi</td><td><input type='text' name='name'></td></tr>
                     <tr><td>E-Mail</td><td><input type='text' name='email'></td></tr>
                     <tr><td>Kasutaja Parool</td><td>{{ randomparool }}<input type='hidden' value='{{ randomparool }}' name='password'></td></tr>
                     <tr><td>Sinu parool</td><td><input type='password' name='yourpassword'></td></tr>
-                    <tr><td colspan='2'><center><button type='submit'>Lisa kasutaja</button></center></td></tr>
+                    <tr><td colspan='2'><button type='submit'>Lisa kasutaja</button></td></tr>
                 </table>
             </form>
 
-            <h2>Admin-kasutaja eemaldamine</h2>
+            <h3>Admin-kasutaja eemaldamine</h3>
             <form method='POST' action="/mnrg/admin/new_user/delete">
                 <table border="0">
                     <tr><td>Kasutaja ID</td><td><input type="text" name="id_delete"></td></tr>
@@ -24,7 +23,7 @@
                 </table>
             </form>
 
-            <h2>Admin-kasutaja access-level</h2>
+            <h3>Admin-kasutaja access-level</h3>
             <form method='POST' action="/mnrg/admin/new_user/update">
                 <table border="0">
                     <tr><td>Kasutaja ID</td><td><input type="text" name="id_update"></td></tr>
@@ -33,9 +32,6 @@
                 </table>
             </form>
         </div>
-
-
-
 
         <div class='contentright'>
             <h2>Kasutajad</h2>

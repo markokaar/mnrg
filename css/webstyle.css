@@ -40,11 +40,12 @@ body{
 }
 
 #footer{
+	position: relative;
+	float: left;
 	height: 100px;
-	border-top: 1px solid black;
-	border-top-width: 200%;
+	border-top: 1px solid #c0c0c0;
 	margin-top: 2em;
-	width: 100%;
+	width: 103%;
 	text-align: left;
 }
 
@@ -91,3 +92,7 @@ body{
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
 }
+A:link {color: black; text-decoration: none; border: none; outline: none; background: none; }
+A:visited {color: black; text-decoration: none; border: none; outline: none; background: none; }
+A:active {color: #666666; text-decoration: none; border: none; outline: none; background: none; }
+A:hover {color: #666666; text-decoration: underline; border: none; outline: none; background: none; }

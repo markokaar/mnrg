@@ -3,7 +3,7 @@
 <head>
     {% block head %}
         <title>{% block title %}M.NRG{% endblock %}</title>
-        <link rel="icon" type="image/png" href="img/favicon.ico">
+        <link rel="icon" type="image/png" href="/mnrg/img/favicon.png">
 
         <meta name="description" content="Mobile nrg.tartu.ee">
         <meta name="keywords" content="mobile, nrg, Nõo Reaalgümnaasium">
@@ -13,41 +13,37 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 
         {% block style %}
-            <!--<link rel='stylesheet' type='text/css' href='bootstrap/css/bootstrap.min.css'>
-            <link rel='stylesheet' type='text/css' href='bootstrap/css/bootstrap.css'>-->
             <link rel='stylesheet' type='text/css' href='/mnrg/css/webstyle.css'>
         {% endblock %}
     {% endblock %}
 </head>
 
-
+<body>
     <div id='wrap'>
-            <div id='header'>
+        <div id='header'>
+            {% block menu %}
+                <div id='menu'>
+                    <a href='/mnrg/admin/'><div class='menublock'>Avaleht</div></a>
+                    <a href='/mnrg/admin/tunniplaan'><div class='menublock'>Tunniplaan</div></a>
+                    <a href='/mnrg/admin/menyy'><div class='menublock'>Menüü</div></a>
+                    <a href='/mnrg/index.php/admin/teated'><div class='menublock'>Teated</div></a>
+                    {% if access == 3 %}<a href='/mnrg/admin/new_user'><div class='menublock'>Lisa kasutaja</div></a> {% endif %}
+                    <a href='/mnrg/index.php/admin/seaded'><div class='menublock'>Seaded</div></a>
+                    <a href='/mnrg/index.php/admin/logout'><div class='menublock'>LOGI VÄLJA</div></a>
+                    &nbsp;&nbsp;<span style='font-size:16px; color:white; text-align: center;
+                                      vertical-align: middle;
+                                      line-height: 30px;'>Sisse logitud, kui <b>{{ kasutajanimi }}</b>.</span>
+                </div>
+            {% endblock %}
+        </div>
 
-        {% block menu %}
-            <div id='menu'>
-                <a href='/mnrg/admin/'><div class='menublock'>Avaleht</div></a>
-                <a href='/mnrg/admin/tunniplaan'><div class='menublock'>Tunniplaan</div></a>
-                <a href='/mnrg/admin/menyy'><div class='menublock'>Menüü</div></a>
-                <a href='/mnrg/index.php/admin/teated'><div class='menublock'>Teated</div></a>
-                {% if access == 3 %}<a href='/mnrg/admin/new_user'><div class='menublock'>Lisa kasutaja</div></a> {% endif %}
-                <a href='/mnrg/index.php/admin/seaded'><div class='menublock'>Seaded</div></a>
-                <a href='/mnrg/index.php/admin/logout'><div class='menublock'>LOGI VÄLJA</div></a>
-                &nbsp;&nbsp;<span style='font-size:16px; color:white'>Sisse logitud, kui <b>{{ kasutajanimi }}</b>.</span>
-            </div>
-        {% endblock %}
+        <div id='content'>
+            {% block content %} {% endblock %}
+        </div>
 
-    </div>
-
-    <div id='content'>
-        {% block content %} {% endblock %}
-    </div>
-
-    <div id='footer'>
-        Footer<br>
-        Footer2 <br>
-    </div>
-</div> <!-- Wrap l6pp -->
-
+        <div id='footer'>
+            mNRG - Admin paneel
+        </div>
+    </div> <!-- Wrap l6pp -->
 </body>
 </html>

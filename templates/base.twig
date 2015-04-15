@@ -4,7 +4,7 @@
 <head>
     {% block head %}
     <title>{% block title %}M.NRG{% endblock %}</title>
-    <link rel="icon" type="image/png" href="../img/favicon.ico">
+    <link rel="icon" type="image/png" href="/mnrg/img/favicon.png">
 
     <meta name="description" content="Mobile nrg.tartu.ee">
     <meta name="keywords" content="mobile, nrg, Nõo Reaalgümnaasium">
@@ -14,47 +14,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 
         {% block style %}
-        <!--<link rel='stylesheet' type='text/css' href='bootstrap/css/bootstrap.min.css'>
-        <link rel='stylesheet' type='text/css' href='bootstrap/css/bootstrap.css'>-->
         <link rel='stylesheet' type='text/css' href='/mnrg/css/style.css'>
         {% endblock %}
     {% endblock %}
 </head>
 
 <body>
-<div id='wrap'>
-    <div id='header'>
-        <a href='/mnrg/index.php' alt='M_NRG'>Header</a>
+    <div id='wrap'>
+        <div id='header'>
+            <a href='/mnrg/index.php' alt='M_NRG'>Header</a>
+            {% block menu %}
+                <div id='menu-button'>
+                    <nav>
+                        <a href='#' alt='menu'><img src='/mnrg/img/menu_button.png' alt='' width='50px'></a>
+                        <ul>
+                            <li><a href="/mnrg/" class="current">Avalehht</a></li>
+                            <li><a href="/mnrg/tunniplaan">Tunniplaan</a></li>
+                            <li><a href="/mnrg/menyy">Menüü</a></li>
+                            <li><a href="/mnrg/teated">Teated</a></li>
+                            <li><a href="https://nrg.ope.ee/">Stuudium</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            {% endblock %}
+        </div>
 
-        {% block menu %}
-            <div id='menu-button'>
-                <nav>
-                    <a href='#' alt='menu'>
-                        <img src='/mnrg/img/menu_button.png' alt='' width='50px'>
-                    </a>
-                    <ul>
-                        <li><a href="/mnrg/" class="current">Avalehht</a></li>
-                        <li><a href="/mnrg/tunniplaan">Tunniplaan</a></li>
-                        <li><a href="/mnrg/menyy">Menüü</a></li>
-                        <li><a href="/mnrg/teated">Teated</a></li>
-                        <li><a href="https://nrg.ope.ee/">Stuudium</a></li>
-                        <!--<div id='menu-blackbg'></div>-->
-                    </ul>
-                </nav>
-            </div>
-        {% endblock %}
+        <div id='content'>
+            {% block content %} {% endblock %}
+        </div>
 
-    </div>
-
-    <div id='content'>
-        {% block content %} {% endblock %}
-    </div>
-
-    <div id='footer'>
-        Footer<br>
-        Footer2 <br>
-    </div>
-</div> <!-- Wrap l6pp -->
-
+        <div id='footer'>
+            mNRG<br>
+            Footer2 <br>
+        </div>
+    </div> <!-- Wrap l6pp -->
 </body>
 </html>
