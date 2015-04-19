@@ -1,4 +1,7 @@
 <?php
+/**
+ * This is summary
+ */
 date_default_timezone_set('Europe/Tallinn');
 
 require_once 'vendor/autoload.php';
@@ -26,6 +29,8 @@ $view->parserOptions = array(
     'debug' => DEBUG,
     'cache' => dirname(__FILE__) . '/cache'
 );
+
+
 
 $view->parserExtensions = array(
     new \Slim\Views\TwigExtension(),

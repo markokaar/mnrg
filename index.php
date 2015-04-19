@@ -1,11 +1,40 @@
 <?php
+/**
+ * Index fail
+ *
+ * Index fail sisaldab k6ike vajalikku jne
+ *
+ */
+
+/**
+ * Pole kindel
+ *
+ * Pole jah kindel, et mis see olema peaks
+ */
 require_once 'app.php';
 
-//Web-osa
+/**
+ * Funktsiooni näide
+ *
+ * Lihtsalt üks näide dokumentatsiooni
+ * jaoks funktsioonist.
+ *
+ * @param string $argument Näide ka argumendist
+ */
+function myFunction($argument){}
+
+/**
+* Esimese funktsiooni algus, index.php enda oma>
+ *
+ * asd
+*/
 $app->get('/', function() use ($app){
     $app->render('index.twig');
 });
 
+/**
+ * Tunniplaan
+ */
 $app->get('/tunniplaan', function () use ($app){
     if(isset($_GET['klass'])) {
         $tund = ORM::for_table('tunniplaan')->where('klass', $_GET['klass'])->find_many();
@@ -90,10 +119,7 @@ $app->get('/admin/teated', function () use ($app){
         $app -> redirect('/mnrg/admin/login');
     }
 });
-/**
- * Test
- * ja Yhtlasi see on admin seaded
- */
+
 
 $app->get('/admin/seaded', function () use ($app){
     if(isset($_SESSION['username'])) {
@@ -108,10 +134,7 @@ $app->get('/admin/seaded', function () use ($app){
         $app -> redirect('/mnrg/admin/login');
     }
 });
-/**
- * Test2
- * tegu on admin updatemisega
- */
+
 $app->post('/admin/seaded/update', function() use ($app){
     if(isset($_SESSION['username'])) {
         $salt = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 5)), 0, 5); //Loob suvalise 5-margilise salti
