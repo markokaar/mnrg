@@ -90,6 +90,10 @@ $app->get('/admin/teated', function () use ($app){
         $app -> redirect('/mnrg/admin/login');
     }
 });
+/**
+ * Test
+ * ja Yhtlasi see on admin seaded
+ */
 
 $app->get('/admin/seaded', function () use ($app){
     if(isset($_SESSION['username'])) {
@@ -104,7 +108,10 @@ $app->get('/admin/seaded', function () use ($app){
         $app -> redirect('/mnrg/admin/login');
     }
 });
-
+/**
+ * Test2
+ * tegu on admin updatemisega
+ */
 $app->post('/admin/seaded/update', function() use ($app){
     if(isset($_SESSION['username'])) {
         $salt = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 5)), 0, 5); //Loob suvalise 5-margilise salti
@@ -255,9 +262,15 @@ $app->get('/admin/logout', function () use ($app){
 });
 
 $app->get('/ajutine-menyy', function() {
-    echo json_encode([
-        '14.04.2015' => ['menyy']
-    ]);
+//    echo json_encode(
+//        ['14.04.2015' => ['menyy' => 'louna', 'ohtu']]
+//    );
+    echo json_encode(
+        ['15.04.2015' => [
+          'louna' => ['kartul','jogurt','piim'],
+          'ohtu' => ['makaron', 'saiake', 'vesi']
+        ]]
+    );
 });
 
 $app->run();
