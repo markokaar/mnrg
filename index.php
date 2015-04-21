@@ -4,12 +4,13 @@
  *
  * Index fail sisaldab k6ike vajalikku jne
  *
+ * @package Index
  */
 
 /**
  * Pole kindel
  *
- * Pole jah kindel, et mis see olema peaks
+ * long desc
  */
 require_once 'app.php';
 
@@ -48,18 +49,28 @@ $app->get('/tunniplaan', function () use ($app){
         $app->render('tunniplaan.twig');
     }
 });
+/**
+ * @source
+ */
+function menyy() {
+    global $app;
 
-$app->get('/menyy', function () use ($app){
     $parser = new \Smalot\PdfParser\Parser();
     $pdf    = $parser->parseFile('http://nrg.tartu.ee/dokumendid/menyy.pdf');
     $text = $pdf->getText();
-    $text = str_replace("Esmaspäev","<b>Esmaspäev</b>",$text);
+    $text = str_replace("Esmaspäev","<b> Esmaspäev</b>",$text);
 
     $app->render('menyy.twig', array(
         'menyy' => $text
     ));
-});
+}
+$app->get('/menyy', 'menyy');
 
+/**
+ * mingi asi
+ *
+ * @var array $teade teretere
+ */
 $app->get('/teated', function () use ($app){
     $teade = ORM::for_table('teated')->find_many(2);
     $app->render('teated.twig', array(
@@ -290,7 +301,7 @@ $app->get('/ajutine-menyy', function() {
 //    );
     echo json_encode(
         ['15.04.2015' => [
-          'louna' => ['kartul','jogurt','piim'],
+          'louna' => 'kartul',
           'ohtu' => ['makaron', 'saiake', 'vesi']
         ]]
     );
