@@ -1,6 +1,6 @@
 <?php
 /**
- * This is summary
+ * app.php sisaldab erinevate moodulite seadistusi, andmebaasiga ühendamist.
  */
 date_default_timezone_set('Europe/Tallinn');
 
@@ -14,7 +14,7 @@ ORM::configure('password', '');
 
 session_start();
 
-//ORM::configure('driver_options', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+ORM::configure('driver_options', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
 
 $app = new \Slim\Slim(array(
     'debug' => DEBUG,
@@ -29,8 +29,6 @@ $view->parserOptions = array(
     'debug' => DEBUG,
     'cache' => dirname(__FILE__) . '/cache'
 );
-
-
 
 $view->parserExtensions = array(
     new \Slim\Views\TwigExtension(),

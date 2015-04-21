@@ -4,14 +4,8 @@
  *
  * Index fail sisaldab k6ike vajalikku jne
  *
- * @package Index
  */
 
-/**
- * Pole kindel
- *
- * long desc
- */
 require_once 'app.php';
 
 /**
@@ -29,14 +23,19 @@ function myFunction($argument){}
  *
  * asd
 */
-$app->get('/', function() use ($app){
+function index(){
+    global $app;
     $app->render('index.twig');
-});
+}
+$app->get('/', 'index');
 
 /**
  * Tunniplaan
+ *
+ * ja selle desc
  */
-$app->get('/tunniplaan', function () use ($app){
+function tunniplaan(){
+    global $app;
     if(isset($_GET['klass'])) {
         $tund = ORM::for_table('tunniplaan')->where('klass', $_GET['klass'])->find_many();
         $app->render('tunniplaan.twig', array(
@@ -48,13 +47,16 @@ $app->get('/tunniplaan', function () use ($app){
     else{
         $app->render('tunniplaan.twig');
     }
-});
-/**
- * @source
- */
-function menyy() {
-    global $app;
+}
+$app->get('/tunniplaan', 'tunniplaan');
 
+/**
+ * Menüü
+ *
+ * Pikk description
+ */
+function menyy(){
+    global $app;
     $parser = new \Smalot\PdfParser\Parser();
     $pdf    = $parser->parseFile('http://nrg.tartu.ee/dokumendid/menyy.pdf');
     $text = $pdf->getText();
@@ -67,21 +69,27 @@ function menyy() {
 $app->get('/menyy', 'menyy');
 
 /**
- * mingi asi
+ * Teated
  *
- * @var array $teade teretere
+ * ja selle desc
  */
-$app->get('/teated', function () use ($app){
+function teated(){
+    global $app;
     $teade = ORM::for_table('teated')->find_many(2);
     $app->render('teated.twig', array(
         'teade' => $teade
     ));
-});
+}
+$app->get('/teated', 'teated');
 
 
-
-//Admin-paneel
-$app->get('/admin/', function () use ($app){
+/**
+ * Admin paneel
+ *
+ * Ja selle desc
+ */
+function admin(){
+    global $app;
     if(isset($_SESSION['username'])){
         $app->render('admin.twig', array(
             'kasutajanimi' => $_SESSION['username'],
@@ -91,9 +99,16 @@ $app->get('/admin/', function () use ($app){
     else{
         $app -> redirect('/mnrg/admin/login');
     }
-});
+}
+$app->get('/admin/', 'admin');
 
-$app->get('/admin/menyy', function () use ($app){
+/**
+ * Admin menüü
+ *
+ * pikk desc
+ */
+function admin_menyy(){
+    global $app;
     if(isset($_SESSION['username'])) {
         $app->render('admin_menyy.twig', array(
             'kasutajanimi' => $_SESSION['username'],
@@ -103,9 +118,16 @@ $app->get('/admin/menyy', function () use ($app){
     else{
         $app -> redirect('/mnrg/admin/login');
     }
-});
+}
+$app->get('/admin/menyy', 'admin_menyy');
 
-$app->get('/admin/tunniplaan', function () use ($app){
+/**
+ * Admin tunniplaan
+ *
+ * pikk descccc
+ */
+function admin_tunniplaan(){
+    global $app;
     if(isset($_SESSION['username'])) {
         $app->render('admin_tunniplaan.twig', array(
             'kasutajanimi' => $_SESSION['username'],
@@ -115,9 +137,16 @@ $app->get('/admin/tunniplaan', function () use ($app){
     else{
         $app -> redirect('/mnrg/admin/login');
     }
-});
+}
+$app->get('/admin/tunniplaan', 'admin_tunniplaan');
 
-$app->get('/admin/teated', function () use ($app){
+/**
+ * Admin teated
+ *
+ * pikk desc
+ */
+function admin_teated(){
+    global $app;
     $teade = ORM::for_table('teated')->find_many();
     if(isset($_SESSION['username'])) {
         $app->render('admin_teated.twig', array(
@@ -129,10 +158,16 @@ $app->get('/admin/teated', function () use ($app){
     else{
         $app -> redirect('/mnrg/admin/login');
     }
-});
+}
+$app->get('/admin/teated', 'admin_teated');
 
-
-$app->get('/admin/seaded', function () use ($app){
+/**
+ * Admin seaded
+ *
+ * l desc
+ */
+function admin_seaded(){
+    global $app;
     if(isset($_SESSION['username'])) {
         $kasutaja = ORM::for_table('users')->where('name',$_SESSION['username'])->find_one();
         $app->render('admin_seaded.twig', array(
@@ -144,9 +179,16 @@ $app->get('/admin/seaded', function () use ($app){
     else{
         $app -> redirect('/mnrg/admin/login');
     }
-});
+}
+$app->get('/admin/seaded', 'admin_seaded');
 
-$app->post('/admin/seaded/update', function() use ($app){
+/**
+ * Admin seadete uuendamine
+ *
+ * ja nende desc
+ */
+function admin_seaded_update(){
+    global $app;
     if(isset($_SESSION['username'])) {
         $salt = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 5)), 0, 5); //Loob suvalise 5-margilise salti
         $password = $_POST['password'];
@@ -162,9 +204,16 @@ $app->post('/admin/seaded/update', function() use ($app){
     else{
         $app -> redirect('/mnrg/admin/login');
     }
-});
+}
+$app->post('/admin/seaded/update', 'admin_seaded_update');
 
-$app->get('/admin/new_user', function () use ($app){
+/**
+ * Admin uus kasutaja
+ *
+ * description
+ */
+function admin_newuser(){
+    global $app;
     if(isset($_SESSION['username'])) {
         $kasutajad = ORM::for_table('users')->find_many();
         $app->render('admin_newuser.twig', array(
@@ -177,9 +226,16 @@ $app->get('/admin/new_user', function () use ($app){
     else{
         $app -> redirect('/mnrg/admin/login');
     }
-});
+}
+$app->get('/admin/new_user', 'admin_newuser');
 
-$app->post('/admin/new_user/delete', function() use ($app){
+/**
+ * Admin kasutaja kustutamine
+ *
+ * descript
+ */
+function admin_user_delete(){
+    global $app;
     if(isset($_SESSION['username'])) {
         $kasutaja = ORM::for_table('users')
             ->where_equal('id', $_POST['id_delete'])
@@ -190,10 +246,16 @@ $app->post('/admin/new_user/delete', function() use ($app){
     else{
         $app -> redirect('/mnrg/admin/login');
     }
-});
+}
+$app->post('/admin/new_user/delete', 'admin_user_delete');
 
-
-$app->post('/admin/new_user/update', function() use ($app){
+/**
+ * Admin kasutaja uuendamine
+ *
+ * desc
+ */
+function admin_user_update(){
+    global $app;
     if(isset($_SESSION['username'])) {
         $kasutaja = ORM::for_table('users')->where_equal('id', $_POST['id_update'])->find_one();
         $kasutaja->set('access', $_POST['access']);
@@ -203,9 +265,16 @@ $app->post('/admin/new_user/update', function() use ($app){
     else{
         $app -> redirect('/mnrg/admin/login');
     }
-});
+}
+$app->post('/admin/new_user/update', 'admin_user_update');
 
-$app->post('/admin/new_user/sisesta', function () use ($app){
+/**
+ * Admin kasutaja sisestamine
+ *
+ * desc
+ */
+function admin_user_sisesta(){
+    global $app;
     $salt = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 5)), 0, 5); //Loob suvalise 5-margilise salti
     $password = $_POST['password'];
     $newpassword = sha1($password + $salt);
@@ -218,20 +287,41 @@ $app->post('/admin/new_user/sisesta', function () use ($app){
     $uuskasutaja->save();
 
     $app -> redirect('/mnrg/admin/new_user');
-});
+}
+$app->post('/admin/new_user/sisesta', 'admin_user_sisesta');
 
-$app->get('/admin/login', function () use ($app){
+/**
+ * Admin login
+ *
+ * desc
+ */
+function admin_login(){
+    global $app;
     $app->render('admin_login.twig');
-});
+}
+$app->get('/admin/login', 'admin_login');
 
-$app->get('/admin/login/error', function () use ($app){
+/**
+ * Admin login error
+ *
+ * desc
+ */
+function admin_login_error(){
+    global $app;
     $error = True;
     $app->render('admin_login.twig', array(
         'error' => $error
     ));
-});
+}
+$app->get('/admin/login/error', 'admin_login_error');
 
-$app->post('/admin/teated/sisesta', function () use ($app){
+/**
+ * Admin teadete sisestamine
+ *
+ * dec
+ */
+function admin_teated_sisesta(){
+    global $app;
     $teated = ORM::for_table('teated')->create();
     $teated->username = $_SESSION['username'];
     $teated->content = $_POST['content'];
@@ -239,10 +329,16 @@ $app->post('/admin/teated/sisesta', function () use ($app){
     $teated->save();
 
     $app -> redirect('/mnrg/admin/teated');
-});
+}
+$app->post('/admin/teated/sisesta', 'admin_teated_sisesta');
 
-
-$app->post('/admin/tunniplaan/sisesta', function () use ($app){
+/**
+ * Admin tunniplaani sisestamine
+ *
+ * desc
+ */
+function admin_tunniplaan_sisesta() use ($app){
+    global $app;
     $klass = $_POST['klass'];
     $paev = $_POST['paev'];
     $tunnid = array($_POST['tund1'],$_POST['tund2'],$_POST['tund3'],$_POST['tund4'],$_POST['tund5'],$_POST['tund6'],$_POST['tund7'],$_POST['tund8'],$_POST['tund9'],$_POST['tund10']);
@@ -268,9 +364,16 @@ $app->post('/admin/tunniplaan/sisesta', function () use ($app){
         }
     }
     $app -> redirect('/mnrg/admin/tunniplaan');
-});
+}
+$app->post('/admin/tunniplaan/sisesta', 'admin_tunniplaan_sisesta');
 
-$app->post('/admin/authenticate', function () use ($app){
+/**
+ * Admin authenticate
+ *
+ * desc
+ */
+function admin_authenticate(){
+    global $app;
     $username = $_POST['username'];
     $password = $_POST['password'];
 
@@ -288,23 +391,37 @@ $app->post('/admin/authenticate', function () use ($app){
     $_SESSION["access"] = $person -> access;
 
     $app -> redirect('/mnrg/admin/');
-});
+}
+$app->post('/admin/authenticate', 'admin_authenticate');
 
-$app->get('/admin/logout', function () use ($app){
+/**
+ * Admin logout
+ *
+ * desc
+ */
+function admin_logout(){
+    global $app;
     session_destroy();
     $app -> redirect('/mnrg/');
-});
+}
+$app->get('/admin/logout', 'admin_logout');
 
-$app->get('/ajutine-menyy', function() {
+/**
+ * AJUTINE MENÜÜ
+ *
+ * ja selle description
+ */
+function ajutine_menyy() {
 //    echo json_encode(
 //        ['14.04.2015' => ['menyy' => 'louna', 'ohtu']]
 //    );
     echo json_encode(
         ['15.04.2015' => [
-          'louna' => 'kartul',
-          'ohtu' => ['makaron', 'saiake', 'vesi']
+            'louna' => 'kartul',
+            'ohtu' => ['makaron', 'saiake', 'vesi']
         ]]
     );
-});
+}
+$app->get('/ajutine-menyy', 'ajutine_menyy');
 
 $app->run();
