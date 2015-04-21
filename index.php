@@ -337,7 +337,7 @@ $app->post('/admin/teated/sisesta', 'admin_teated_sisesta');
  *
  * desc
  */
-function admin_tunniplaan_sisesta() use ($app){
+function admin_tunniplaan_sisesta(){
     global $app;
     $klass = $_POST['klass'];
     $paev = $_POST['paev'];

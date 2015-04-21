@@ -34,6 +34,4 @@ $view->parserExtensions = array(
     new \Slim\Views\TwigExtension(),
 );
 
-
-
 $app->response->headers->set('Content-Type', 'text/html; charset=utf-8');
