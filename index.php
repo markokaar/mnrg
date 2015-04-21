@@ -41,7 +41,7 @@ function tunniplaan(){
         $app->render('tunniplaan.twig', array(
             'klass' => $_GET['klass'],
             'tund' => $tund,
-            'paevad' => array('Esmaspaev', 'Teisipaev', 'Kolmapaev', 'Neljapaev', 'Reede')
+            'paevad' => array('Esmaspäev', 'Teisipäev', 'Kolmapäev', 'Neljapäev', 'Reede')
         ));
     }
     else{

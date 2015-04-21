@@ -7,32 +7,37 @@
         <h2>Tunniplaan</h2>
         <p>Vali klass..
         </p>
-        <form action="/mnrg/tunniplaan" method="GET">
-        <select name="klass">
-            <option value="10.a">10.a</option>
-            <option value="10.b">10.b</option>
-            <option value="10.c">10.c</option>
-            <option value="11.a">11.a</option>
-            <option value="11.b">11.b</option>
-            <option value="11.c">11.c</option>
-            <option value="12.a">12.a</option>
-            <option value="12.b">12.b</option>
-            <option value="12.c">12.c</option>
-        </select>
-        <input type="submit" value="Vaata tunniplaani">
-        </form>
+
+        <center>
+        <div class="btn-group" role="group">
+            <a class="btn btn-default" type="button" href="/mnrg/tunniplaan?klass=10.a">10.a</a>
+            <a class="btn btn-default" type="button" href="/mnrg/tunniplaan?klass=10.b">10.b</a>
+            <a class="btn btn-default" type="button" href="/mnrg/tunniplaan?klass=10.c">10.c</a>
+        </div>
+        <div class="btn-group" role="group">
+            <a class="btn btn-default" type="button" href="/mnrg/tunniplaan?klass=11.a">11.a</a>
+            <a class="btn btn-default" type="button" href="/mnrg/tunniplaan?klass=11.b">11.b</a>
+            <a class="btn btn-default" type="button" href="/mnrg/tunniplaan?klass=11.c">11.c</a>
+        </div>
+        <div class="btn-group" role="group">
+            <a class="btn btn-default" type="button" href="/mnrg/tunniplaan?klass=12.a">12.a</a>
+            <a class="btn btn-default" type="button" href="/mnrg/tunniplaan?klass=12.b">12.b</a>
+            <a class="btn btn-default" type="button" href="/mnrg/tunniplaan?klass=12.c">12.c</a>
+        </div>
+        </center>
     </div>
 
     {% if paevad != '' %}
         <div class="block">
             <center>
+                <h1>Klass {{ klass }}</h1>
                 {% for p in paevad %}
                     <div class="tunniplaan_taust">
-                    <h2>{{ p }}</h2>
+                    <h3>{{ p }}</h3>
                     <table border="0">
                         {% for t in tund %}
                             {% if p == t.paev %}
-                                <tr><td>{{ t.tund_nr }}.</td><td>{{ t.tund }} </td><td>{{ t.ruum }}</td></tr>
+                                <tr><td>{{ t.tund_nr }}.&nbsp;</td><td>{{ t.tund }} </td><td>&nbsp;{{ t.ruum }}</td></tr>
                             {% endif %}
                         {% endfor %}
                     </table>

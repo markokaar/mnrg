@@ -16,30 +16,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 
         {% block style %}
-        <link rel='stylesheet' type='text/css' href='/mnrg/css/style.css'>
+            <link href="/mnrg/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+            <link rel='stylesheet' type='text/css' href='/mnrg/css/style.css'>
         {% endblock %}
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="/mnrg/bootstrap/js/bootstrap.min.js"></script>
     {% endblock %}
 </head>
 
 <body>
+    <div id='header'>
+        <a href='/mnrg/index.php' alt='M_NRG'>Header</a>
+        {% block menu %}
+            <div class="dropdown">
+                <button class="glyphicon glyphicon-menu-hamburger btn-lg" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                    <span class="caret"></span>
+                </button>
+
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/mnrg/" class="current">Avaleht</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/mnrg/tunniplaan">Tunniplaan</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/mnrg/menyy">Menüü</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/mnrg/teated">Teated</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="https://nrg.ope.ee/">Stuudium</a></li>
+                </ul>
+            </div>
+        {% endblock %}
+    </div>
     <div id='wrap'>
-        <div id='header'>
-            <a href='/mnrg/index.php' alt='M_NRG'>Header</a>
-            {% block menu %}
-                <div id='menu-button'>
-                    <nav>
-                        <a href='#' alt='menu'><img src='/mnrg/img/menu_button.png' alt='' width='50px'></a>
-                        <ul>
-                            <li><a href="/mnrg/" class="current">Avalehht</a></li>
-                            <li><a href="/mnrg/tunniplaan">Tunniplaan</a></li>
-                            <li><a href="/mnrg/menyy">Menüü</a></li>
-                            <li><a href="/mnrg/teated">Teated</a></li>
-                            <li><a href="https://nrg.ope.ee/">Stuudium</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            {% endblock %}
-        </div>
+
 
         <div id='content'>
             {% block content %} {% endblock %}
