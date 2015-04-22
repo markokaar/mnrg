@@ -30,7 +30,12 @@
         <div class="contentright_holder">
         {% for t in teade %}
             <div class="contentright">
-                {{ t.id }}
+                <span style="float:right">
+                <form action="/mnrg/admin/teated/kustuta" method="GET">
+                    <input type="hidden" name="id" value="{{ t.id }}">
+                    <button type="submit" class="btn btn-default">Kustuta</button>
+                </form>
+                    </span>
                 {{ t.content|raw }}
                 <br><br><br><b>{{ t.username }}</b>
                 <br>{{ t.date }}

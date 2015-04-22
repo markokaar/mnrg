@@ -339,11 +339,15 @@ $app->post('/admin/teated/sisesta', 'admin_teated_sisesta');
  */
 function admin_teated_kustuta(){
     global $app;
+    $id = $_GET['id'];
+    echo $id;
 
-
+    $person = ORM::for_table('teated')
+        ->where_equal('id', $id)
+        ->delete_many();
     $app -> redirect('/mnrg/admin/teated');
 }
-$app->post('/admin/teated/kustuta', 'admin_teated_kustuta');
+$app->get('/admin/teated/kustuta', 'admin_teated_kustuta');
 
 /**
  * Admin tunniplaani sisestamine
