@@ -1,0 +1,50 @@
+1. Kasutajale
+    1.0 Rakendus on mõeldud tavakasutamiseks nutiseadmetes (nutitelefon, tahvelarvuti).
+    1.1 Pealeht
+    Rakenduse käivitamisel avaneb vaade pealehele ning paremal üleval asuvale menüü nupule. Pealehelt saab lugeda
+    rakenduse kirjeldust ja infot selle kohta. Pealehel asuvad ka mõned juhised rakenduse kasutamiseks.
+    1.2 Navigatsioonimenüü
+    Klõpsates paremal ülemises nurgas asuvale menüü nupule avaneb navigatsioonimenüü kus on valik kõikidest
+    rakenduse tavakasutajale mõeldud võimalustest. Valdkonnad on: tunniplaan, menüü, teated ning link Nõo
+    Reaalgümnaasiumi õpilaste Stuudiumisse. Menüüs saab ka minna rakenduse pealehele mida on kirjeldatud punktis 1.1.
+    1.3 Tunniplaan
+    Avades menüü kaudu tunniplaani, avaneb vaade klasside nimekirjale. Valides nimekirjast omale sobiva klassi
+    kuvatakse välja selle klassi nädala tunniplaan. Tunniplaanis esimene lahter on number, mis tähistab tunni numbrit,
+    teine lahter tähistab õppeaine nimetust ning kolmas näitab klassiruumi kus konkreetne tund toimub.
+    1.4 Söökla menüü
+
+    1.5 Teated
+    Valides menüüst "Teated", avaneb vaade viimastele administraatori poolt lisatud teadetele. Iga teate all on
+    kirjas teate kirjutaja nimi ja teate lisamise kuupäev.
+    1.6 Stuudium
+    Viimane link menüüs on link Stuudiumisse. Valides selle, suunab rakendus kasutaja edasi Nõo Reaalgümnaasiumi
+    stuudiumisse.
+
+2. Administraatorile
+    2.0 Administraatorite osa rakendusest on mõeldud arvutis kasutamiseks.
+    2.1 Sisselogimine
+    Ennem kui saab kasutada administraatori võimalusi, tuleb oma isikliku kasutaja ja parooliga sisse logida.
+    Kasutajanimi ja parool on eelnevalt lisatud andmebaasi administraatori poolt. Kui kasutaja puudub, siis võtke
+    ühendust veebirakenduse haldajaga.
+    2.2 Administraatori pealeht
+    Peale sisselogimist suunab rakendus kasutaja administraatorite pealehele, kus on kirjeldatud administraatorite
+    paneeli ning selle võimalusi.
+    2.3 Tunniplaani lisamine
+    Valides menüüst tunniplaani lisamise avanevad lahtrid ühe päeva tundide sisestamiseks. Esimesena tuleks valida
+    klass, kellele konkreetne päeva tunniplaan lisatakse. Teiseks tuleks valida nädalapäev, mis päevale tunniplaani
+    soovitakse lisada. Ainetundide lisamisel on ette antud tundide numbrid, esimesse lahtrisse sisestatakse
+    ainetunni nimi, teise lahtrisse selle toimumise ruum. Ette on antud 10 tunni lisamise võimalus ühe päeva jaoks.
+    Kui vahepeal on mõni tühi tund, siis võib jätta lahtrid täitmata kuid on soovitatav selguse mõttes kirjutada "-".
+    NB! Kui konkreetsel klassil on valitud päevale sisestatud tunde, siis need kustutatakse andmebaasist ja lisatakse
+    sinna uus tunniplaan selle päeva jaoks.
+    2.4 Menüü lisamine ? Muutmine??
+
+    2.5 Teadete lisamine
+    Valides menüüst teadete lisamise, avaneb vasakul vaade lisamise kastile ning paremal viimastele lisatud teadetele.
+    Teate lisamisel on võimalik kasutada erinevaid tekstitöötluse võimalusi. Soovitatav on tuua pealkirjad teadetel
+    välja kasutades tekstitöötluse kõige esimest nuppu "Style" ja valides sealt "Header". Paremal, kus on kirjas
+    viimased teated, on võimalik ka teateid kustutada vajutades teate paremal küljel asuvat nuppu "Kustuta".
+    2.6 Seaded
+    Seadete all on saab kasutaja muuta oma parooli ja näha oma kasutaja infot.
+    2.7 Logi välja
+    Kui töö administraatorite paneelil on lõpetatud, on soovitav logida endkasutaja välja kasutades nuppu "Logi välja".
