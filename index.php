@@ -333,6 +333,19 @@ function admin_teated_sisesta(){
 $app->post('/admin/teated/sisesta', 'admin_teated_sisesta');
 
 /**
+ * Admin teadete kustutamine
+ *
+ * dec
+ */
+function admin_teated_kustuta(){
+    global $app;
+
+
+    $app -> redirect('/mnrg/admin/teated');
+}
+$app->post('/admin/teated/kustuta', 'admin_teated_kustuta');
+
+/**
  * Admin tunniplaani sisestamine
  *
  * desc

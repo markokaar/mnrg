@@ -1,7 +1,6 @@
 body{
 	color: rgb(176, 174, 172);
-	background-image:url('../img/bg.png');
-	background-color: black;
+	background-color: #EEEEEE;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 13px;
 }
@@ -34,7 +33,6 @@ body{
 	min-height: 400px;
 	padding: 1em;
 	border: 1px solid #505050;
-	background-color: #202020;
 	border-radius: 3px;
 	width: 100%;
 }
@@ -80,6 +78,11 @@ body{
 	margin-top: 10px;
 }
 
+.contentright_holder{
+	position: relative;
+	float: right;
+	width: 475px;
+}
 .contentright{
 	position: relative;
 	float: right;

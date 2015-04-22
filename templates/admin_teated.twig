@@ -1,26 +1,52 @@
 {% extends 'web_base.twig' %}
 
 {% block title %} {{  parent() }} - Teadete lisamine {% endblock %}
+{% block style %}
+    <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 
+    <!-- include summernote css/js-->
+    <link href="/mnrg/vendor/summernote/summernote/dist/summernote.css" rel="stylesheet">
+    <script src="/mnrg/vendor/summernote/summernote/dist/summernote.min.js"></script>
+
+{% endblock %}
 {% block content %}
     <div class='block'>
         <h3>Admin-paneel - Teadete lisamine</h3>
 
         <div class="contentleft">
-            <form action="/mnrg/admin/teated/sisesta" method="POST">
-                <table border='0'>
-                    <textarea rows="40" cols="60" name="content"></textarea>
-                    <tr><td><input type="submit" value="Saada teade"></td></tr>
-                </table>
+
+            <form class="span12" id="postForm" action="/mnrg/admin/teated/sisesta" method="POST" enctype="multipart/form-data" onsubmit="return postForm()">
+            <textarea class="input-block-level" id="summernote" name="content" rows="18">
+					</textarea>
+
+                <button type='submit'>Sisesta teade</button>
             </form>
         </div>
     </div>
 
+        <div class="contentright_holder">
         {% for t in teade %}
             <div class="contentright">
-                {{ t.content }}
+                {{ t.id }}
+                {{ t.content|raw }}
                 <br><br><br><b>{{ t.username }}</b>
                 <br>{{ t.date }}
             </div>
         {% endfor %}
+        </div>
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote({
+                height: 300
+            });
+        });
+
+        var postForm = function() {
+            var content = $('textarea[name="content"]').html($('#summernote').code());
+        }
+    </script>
+
 {% endblock %}

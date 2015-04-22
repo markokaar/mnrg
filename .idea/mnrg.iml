@@ -47,6 +47,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/slim/slim" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/slim/views" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/smalot/pdfparser" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/summernote/summernote" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/config" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/console" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher" />
@@ -146,6 +147,7 @@
           <root url="file://$MODULE_DIR$/vendor/symfony/finder" />
           <root url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher" />
           <root url="file://$MODULE_DIR$/vendor/j4mie/idiorm" />
+          <root url="file://$MODULE_DIR$/vendor/summernote/summernote" />
           <root url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection" />
           <root url="file://$MODULE_DIR$/vendor/Graphviz/pango" />
           <root url="file://$MODULE_DIR$/vendor/nikic/php-parser" />
@@ -216,6 +218,7 @@
           <root url="file://$MODULE_DIR$/vendor/symfony/finder" />
           <root url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher" />
           <root url="file://$MODULE_DIR$/vendor/j4mie/idiorm" />
+          <root url="file://$MODULE_DIR$/vendor/summernote/summernote" />
           <root url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection" />
           <root url="file://$MODULE_DIR$/vendor/Graphviz/pango" />
           <root url="file://$MODULE_DIR$/vendor/nikic/php-parser" />

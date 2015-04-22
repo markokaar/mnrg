@@ -8,7 +8,7 @@
     </div>
     {% for t in teade %}
         <div class="block">
-            {{ t.content }}
+            {{ t.content|raw }}
             <br><br><br><b>{{ t.username }}</b>
             <br>{{ t.date }}
         </div>
