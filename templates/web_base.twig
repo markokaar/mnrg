@@ -12,10 +12,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 
-
-        <link rel='stylesheet' type='text/css' href='/mnrg/css/webstyle.css'>
         {% block style %}
         {% endblock %}
+        <link rel='stylesheet' type='text/css' href='/mnrg/css/webstyle.css'>
+
     {% endblock %}
 </head>
 
@@ -31,7 +31,7 @@
                     {% if access == 3 %}<a href='/mnrg/admin/new_user'><div class='menublock'>Lisa kasutaja</div></a> {% endif %}
                     <a href='/mnrg/index.php/admin/seaded'><div class='menublock'>Seaded</div></a>
                     <a href='/mnrg/index.php/admin/logout'><div class='menublock'>LOGI VÄLJA</div></a>
-                    &nbsp;&nbsp;<span style='font-size:16px; color:white; text-align: center;
+                    &nbsp;&nbsp;<span style='font-size:16px; color:black; text-align: center;
                                       vertical-align: middle;
                                       line-height: 30px;'>Sisse logitud, kui <b>{{ kasutajanimi }}</b>.</span>
                 </div>

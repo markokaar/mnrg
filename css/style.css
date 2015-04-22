@@ -119,10 +119,7 @@ th {
 	margin-left: 2%;
 	margin-right: 2%;
 
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.3);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+    background-color: #cccccc;
 }
 
 .tunniplaan_taust {
