@@ -2,22 +2,23 @@
 /**
  * Index fail
  *
- * Index fail sisaldab k6ike vajalikku jne
+ * Index fail sisaldab kogu rakenduse sisu.
  *
  * @author Marko Käär
  */
 
 /**
- * app requiremine
- *
+ * app.php requiremine
  */
 require_once 'app.php';
 
 /**
-* Esimese funktsiooni algus, index.php enda oma>
+ * Index - pealeht
  *
- * asd
+ * Kasutaja jaoks kuvatakse välja rakenduse pealeht, milleks on index.twig
  *
+ * @global object $app on defineeritud app.php, käivitab Slim frameworki.
+ * @link /mnrg/
  * @package Kasutaja
 */
 function index(){
@@ -29,7 +30,11 @@ $app->get('/', 'index');
 /**
  * Tunniplaan
  *
- * ja selle desc
+ * Kuvab kasutaja jaoks välja valitud klassi terve nädala tunniplaani.
+ *
+ * @global object $app on defineeritud app.php, käivitab Slim frameworki.
+ * @var string $_GET['klass'] Algselt puudu, kasutaja valib oma klassi menyy.twig failis ja määrab sellega muutuja väärtuse.
+ * @link /mnrg/tunniplaan
  *
  * @package Kasutaja
  */
@@ -52,7 +57,10 @@ $app->get('/tunniplaan', 'tunniplaan');
 /**
  * Menüü
  *
- * Pikk description
+ * Kuvab kasutaja jaoks andmebaasist välja menüü. - PUUDU
+ *
+ * @global object $app on defineeritud app.php, käivitab Slim frameworki.
+ * @link /mnrg/tunniplaan
  *
  * @package Kasutaja
  */
@@ -72,7 +80,10 @@ $app->get('/menyy', 'menyy');
 /**
  * Teated
  *
- * ja selle desc
+ * Kuvab andmebaasist välja kasutaja jaoks viimased 10 teadet.
+ *
+ * @global object $app on defineeritud app.php, käivitab Slim frameworki.
+ * @link /mnrg/menyy
  *
  * @package Kasutaja
  */
@@ -94,6 +105,7 @@ $app->get('/teated', 'teated');
  * @package admin-paneel
  * @subpackage Menüü
  *
+ * @link /mnrg/admin/
  * @global object $app on defineeritud app.php, käivitab Slim frameworki.
  * @var string $_SESSION['username'] Seissionisse salvestatud kasutajanimi
  * @var $asdded Seissionisse salvestatud kasutaja access level - kasutaja õiguste kindlaks tegemiseks
@@ -115,7 +127,14 @@ $app->get('/admin/', 'admin');
 /**
  * Admin menüü
  *
- * pikk desc
+ * Kuvab admin_menyy.twig, kus on ??????????? võimalus. Kui admin kasutaja ei ole sisse logitud
+ * (pole määratud $_SESSION['username']) siis suunab funktsiooni admin_login().
+ *
+ * @link /mnrg/admin/menyy
+ * @global object $app On defineeritud failis app.php, käivitab Slim frameworki.
+ * @var string $_SESSION['username'] Sessionisse salvestatud kasutaja nimi, kontrollimaks kas adminkasutaja on
+ * sisse logitud, et kuvada välja vajalikku infot.
+ * @var integer $_SESSION['access'] Sessionisse salvestatud sisse logitud kasutaja access level(õiguste tase).
  *
  * @package admin-paneel
  * @subpackage Menüü
@@ -137,7 +156,14 @@ $app->get('/admin/menyy', 'admin_menyy');
 /**
  * Admin tunniplaan
  *
- * pikk descccc
+ * Kuvab admin_tunniplaan.twig, kus on tunniplaani lisamise võimalus. Kui admin kasutaja ei ole sisse logitud
+ * (pole määratud $_SESSION['username']) siis suunab funktsiooni admin_login().
+ *
+ * @link /mnrg/admin/tunniplaan
+ * @global object $app On defineeritud failis app.php, käivitab Slim frameworki.
+ * @var string $_SESSION['username'] Sessionisse salvestatud kasutaja nimi, kontrollimaks kas adminkasutaja on
+ * sisse logitud, et kuvada välja vajalikku infot.
+ * @var integer $_SESSION['access'] Sessionisse salvestatud sisse logitud kasutaja access level(õiguste tase).
  *
  * @package admin-paneel
  * @subpackage Menüü
@@ -159,7 +185,14 @@ $app->get('/admin/tunniplaan', 'admin_tunniplaan');
 /**
  * Admin teated
  *
- * pikk desc
+ * Kuvab admin_teated.twig, kus on teadete lisamise, kustutamise võimalus. Kui admin kasutaja ei ole sisse logitud
+ * (pole määratud $_SESSION['username']) siis suunab funktsiooni admin_login().
+ *
+ * @link /mnrg/admin/teated
+ * @global object $app On defineeritud failis app.php, käivitab Slim frameworki.
+ * @var string $_SESSION['username'] Sessionisse salvestatud kasutaja nimi, kontrollimaks kas adminkasutaja on
+ * sisse logitud, et kuvada välja vajalikku infot.
+ * @var integer $_SESSION['access'] Sessionisse salvestatud sisse logitud kasutaja access level(õiguste tase).
  *
  * @package admin-paneel
  * @subpackage Menüü
@@ -183,7 +216,14 @@ $app->get('/admin/teated', 'admin_teated');
 /**
  * Admin seaded
  *
- * l desc
+ * Kuvab admin_seaded.twig, kus on kasutaja parooli muutmise võimalus. Kui admin kasutaja ei ole sisse logitud
+ * (pole määratud $_SESSION['username']) siis suunab funktsiooni admin_login().
+ *
+ * @link /mnrg/admin/seaded
+ * @global object $app On defineeritud failis app.php, käivitab Slim frameworki.
+ * @var string $_SESSION['username'] Sessionisse salvestatud kasutaja nimi, kontrollimaks kas adminkasutaja on
+ * sisse logitud, et kuvada välja vajalikku infot.
+ * @var integer $_SESSION['access'] Sessionisse salvestatud sisse logitud kasutaja access level(õiguste tase).
  *
  * @package admin-paneel
  * @subpackage Menüü
@@ -207,7 +247,13 @@ $app->get('/admin/seaded', 'admin_seaded');
 /**
  * Admin seadete uuendamine
  *
- * ja nende desc
+ * Admin-paneeli seaded, uuendab sisse logitud kasutaja parooli ning suunab edasi funktsiooni admin_seaded().
+ * Kontrollib ka kas kasutaja on sisselogitud, kui mitte siis suunab funktsiooni admin_login().
+ *
+ * @global object $app On defineeritud failis app.php, käivitab Slim frameworki.
+ * @var string $_SESSION['username'] Sessionisse salvestatud kasutaja nimi, kontrollimaks kas adminkasutaja on
+ * sisse logitud, et kuvada välja vajalikku infot.
+ * @var string $_POST['password'] Sisestatud kasutaja uus parool, saadetakse funktsioonist admin_seaded().
  *
  * @package admin-paneel
  * @subpackage Sisu
@@ -235,7 +281,14 @@ $app->post('/admin/seaded/update', 'admin_seaded_update');
 /**
  * Admin uus kasutaja
  *
- * description
+ * Admin paneelil menüüs "Uus kasutaja". Kuvab välja admin_newuser.twig Võimaldab lisada, kustutada, uuendada
+ * admin-kasutajat. Kuvab välja kõik admin-kasutajad.
+ *
+ * @link /mnrg/admin/newuser
+ * @global object $app On defineeritud failis app.php, käivitab Slim frameworki.
+ * @var string $_SESSION['username'] Sessionisse salvestatud kasutaja nimi, kontrollimaks kas adminkasutaja on
+ * sisse logitud, et kuvada välja vajalikku infot.
+ * @var integer $_SESSION['access'] Sessionisse salvestatud sisse logitud kasutaja access level(õiguste tase).
  *
  * @package admin-paneel
  * @subpackage Sisu
@@ -260,7 +313,14 @@ $app->get('/admin/new_user', 'admin_newuser');
 /**
  * Admin kasutaja kustutamine
  *
- * descript
+ * Funktsiooniast admin_newuser() saadetakse vajalikud muutujad, kustutatakse andmebaasist valitud id-ga kasutaja.
+ * Kontrollib ka kas kasutaja on sisselogitud, kui mitte, siis muudatusi ei tehta ja suunatakse funktsiooni admin_login().
+ * Suunab edasi funktsiooni admin_newuser().
+ *
+ * @global object $app On defineeritud failis app.php, käivitab Slim frameworki.
+ * @var string $_SESSION['username'] Sessionisse salvestatud kasutaja nimi, kontrollimaks kas adminkasutaja on
+ * sisse logitud, et infot andmebaasis muuta.
+ * @var integer $_POST['id_delete'] Kustutatava kasutaja id andmebaasis. Saadetakse funktsioonist admin_newuser().
  *
  * @package admin-paneel
  * @subpackage Sisu
@@ -283,7 +343,14 @@ $app->post('/admin/new_user/delete', 'admin_user_delete');
 /**
  * Admin kasutaja uuendamine
  *
- * desc
+ * Muudab kasutaja access(ligipääsu) õigusi. Vajalikud muutujad saadakse funktsioonist admin_newuser(). Kontrollib ka
+ * kas kasutaja on sisselogitud, kui mitte, siis muudatusi ei tehta ja suunatakse funktsiooni admin_login().
+ *
+ * @global object $app On defineeritud failis app.php, käivitab Slim frameworki.
+ * @var string $_SESSION['username'] Sessionisse salvestatud kasutaja nimi, kontrollimaks kas adminkasutaja on
+ * sisse logitud, et infot andmebaasis muuta.
+ * @var integer $_POST['id_update'] Muudetava kasutaja id andmebaasis.
+ * @var integer $_POST['access'] Muudetava kasutaja uus access level 1-Tavaline admin, 3-Kõikide õigustega admin.
  *
  * @package admin-paneel
  * @subpackage Sisu
@@ -305,7 +372,13 @@ $app->post('/admin/new_user/update', 'admin_user_update');
 /**
  * Admin kasutaja sisestamine
  *
- * desc
+ * Saab allolevad muutujad funktsioonist admin_newuser() ning lisab sisestatud kasutaja ning tema andmed andmebaasi.
+ * Kasutaja suunatakse edasi funktsiooni admin_newuser().
+ *
+ * @global object $app On defineeritud failis app.php, käivitab Slim frameworki.
+ * @var string $_POST['name'] Sisaldab sisestatud kasutaja kasutajanime.
+ * @var string $_POST['email'] Sisaldab sisestatud kasutaja emaili.
+ * @var string $_POST['password'] Sisaldab sisestatud kasutaja parooli.
  *
  * @package admin-paneel
  * @subpackage Sisu
@@ -330,7 +403,10 @@ $app->post('/admin/new_user/sisesta', 'admin_user_sisesta');
 /**
  * Admin login
  *
- * desc
+ * Kuvab välja admin_login.twig
+ *
+ * @global object $app On defineeritud failis app.php, käivitab Slim frameworki.
+ * @link /mnrg/admin/login
  *
  * @package admin-paneel
  * @subpackage Sisu
@@ -344,7 +420,11 @@ $app->get('/admin/login', 'admin_login');
 /**
  * Admin login error
  *
- * desc
+ * Kuvab välja admin_login.twig koos erroriga.
+ *
+ * @global object $app On defineeritud failis app.php, käivitab Slim frameworki.
+ * @var bool error Väärtus vaikimisi True, saadetakse faili admin_login.twig, kus kuvatakse välja, et sisselogimine
+ * ebaõnnestus.
  *
  * @package admin-paneel
  * @subpackage Sisu
@@ -361,7 +441,12 @@ $app->get('/admin/login/error', 'admin_login_error');
 /**
  * Admin teadete sisestamine
  *
- * dec
+ * Võtab vastu kaks muutujat kasutajanimi ja teate sisu ning lisab need andmebaasi. Lisab juurde kuupäeva ning kellaaja.
+ * Kasutaja suunatakse tagasi funktsiooni admin_teated().
+ *
+ * @global object $app On defineeritud failis app.php, käivitab Slim frameworki.
+ * @var string $_SESSION['username'] Sessionisse salvestatud sisse logitud kasutaja nimi.
+ * @var string $_POST['content'] Saadetakse funktsioonist admin_teated(), sisaldab sisestatava teate sisu.
  *
  * @package admin-paneel
  * @subpackage Sisu
@@ -381,7 +466,11 @@ $app->post('/admin/teated/sisesta', 'admin_teated_sisesta');
 /**
  * Admin teadete kustutamine
  *
- * dec
+ * Võtab vastu kustutava teate id, kustutab andmebaasist selle id all oleva teate.
+ * Suunab kasutaja tagasi funktsiooni admin_teated()
+ *
+ * @global object $app On defineeritud failis app.php, käivitab Slim frameworki.
+ * @var integer $_GET['id'] Sisaldab kustutatava teate id-d, saadetakse funktsioonist admin_teated().
  *
  * @package admin-paneel
  * @subpackage Sisu
@@ -389,7 +478,6 @@ $app->post('/admin/teated/sisesta', 'admin_teated_sisesta');
 function admin_teated_kustuta(){
     global $app;
     $id = $_GET['id'];
-    echo $id;
 
     $person = ORM::for_table('teated')
         ->where_equal('id', $id)

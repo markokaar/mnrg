@@ -74,6 +74,12 @@ th {
 	float: right;
 	margin: 1%;
 }
+
+.glyphicon{
+	z-index: 9999999;
+	background-color: white;
+}
+
 .dropdown-menu li:hover .sub-menu {
 	visibility: visible;
 }
