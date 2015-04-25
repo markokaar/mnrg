@@ -8,12 +8,18 @@
 
         <div class="contentleft">
         <h3>Parooli uuendamine</h3>
+            {% if error == 1 %}
+                <span style="color: darkred"><b>Sisestatud praegune parool ei ole õige!</b></span>
+            {% endif  %}
+            {% if error == 2 %}
+                <span style="color: darkred"><b>Sisestatud uued paroolid ei kattu!</b></span>
+            {% endif  %}
             <form method='POST' action="/mnrg/admin/seaded/update">
                 <table border="0">
                     <tr><td>Uus parool</td><td><input type="password" name="password"></td></tr>
                     <tr><td>Korda parooli</td><td><input type="password" name="password2"></td></tr>
                     <tr><td>&nbsp;</td></tr>
-                    <tr><td>Praegune parool</td><td><input type="password" name="password_now"></td></tr>
+                    <tr><td>Praegune parool</td><td><input type="password" name="yourpassword"></td></tr>
                     <tr><td colspan="2"><button type="submit">Muuda parool</button></td></tr>
                 </table>
             </form>

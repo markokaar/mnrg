@@ -231,12 +231,23 @@ $app->get('/admin/teated', 'admin_teated');
 function admin_seaded(){
     global $app;
     if(isset($_SESSION['username'])) {
-        $kasutaja = ORM::for_table('users')->where('name',$_SESSION['username'])->find_one();
-        $app->render('admin_seaded.twig', array(
-            'kasutajanimi' => $_SESSION['username'],
-            'access' => $_SESSION['access'],
-            'kasutaja' => $kasutaja
-        ));
+        if(isset($_GET['error'])) {
+            $kasutaja = ORM::for_table('users')->where('name', $_SESSION['username'])->find_one();
+            $app->render('admin_seaded.twig', array(
+                'kasutajanimi' => $_SESSION['username'],
+                'access' => $_SESSION['access'],
+                'kasutaja' => $kasutaja,
+                'error' => $_GET['error']
+            ));
+        }
+        else{
+            $kasutaja = ORM::for_table('users')->where('name', $_SESSION['username'])->find_one();
+            $app->render('admin_seaded.twig', array(
+                'kasutajanimi' => $_SESSION['username'],
+                'access' => $_SESSION['access'],
+                'kasutaja' => $kasutaja
+            ));
+        }
     }
     else{
         $app -> redirect('/mnrg/admin/login');
@@ -261,16 +272,29 @@ $app->get('/admin/seaded', 'admin_seaded');
 function admin_seaded_update(){
     global $app;
     if(isset($_SESSION['username'])) {
-        $salt = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 5)), 0, 5); //Loob suvalise 5-margilise salti
-        $password = $_POST['password'];
-        $newpassword = sha1($password + $salt);
-
+        if($_POST['password'] != $_POST['password2']){
+            $app -> redirect('/mnrg/admin/seaded?error=2');
+            exit;
+        }
         $kasutaja = ORM::for_table('users')->where_equal('name', $_SESSION['username'])->find_one();
-        $kasutaja->set('password', $newpassword);
-        $kasutaja->set('salt', $salt);
-        $kasutaja->save();
+        $db_parool = $kasutaja->password;
+        $sisestatud_parool = sha1($_POST['yourpassword'] + $kasutaja->salt);
 
-        $app -> redirect('/mnrg/admin/seaded');
+        if($db_parool == $sisestatud_parool){
+            $salt = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 5)), 0, 5); //Loob suvalise 5-margilise salti
+            $password = $_POST['password'];
+            $newpassword = sha1($password + $salt);
+
+            $kasutaja = ORM::for_table('users')->where_equal('name', $_SESSION['username'])->find_one();
+            $kasutaja->set('password', $newpassword);
+            $kasutaja->set('salt', $salt);
+            $kasutaja->save();
+
+            $app -> redirect('/mnrg/admin/seaded');
+        }
+        else{
+            $app -> redirect('/mnrg/admin/seaded?error=1');
+        }
     }
     else{
         $app -> redirect('/mnrg/admin/login');
@@ -296,13 +320,25 @@ $app->post('/admin/seaded/update', 'admin_seaded_update');
 function admin_newuser(){
     global $app;
     if(isset($_SESSION['username'])) {
-        $kasutajad = ORM::for_table('users')->find_many();
-        $app->render('admin_newuser.twig', array(
-            'kasutajanimi' => $_SESSION['username'],
-            'access' => $_SESSION['access'],
-            'randomparool' => rand(100000,999999),
-            'kasutaja' => $kasutajad
-        ));
+        if(isset($_GET['error'])) {
+            $kasutajad = ORM::for_table('users')->find_many();
+            $app->render('admin_newuser.twig', array(
+                'kasutajanimi' => $_SESSION['username'],
+                'access' => $_SESSION['access'],
+                'randomparool' => rand(100000, 999999),
+                'kasutaja' => $kasutajad,
+                'error' => $_GET['error']
+            ));
+        }
+        else {
+            $kasutajad = ORM::for_table('users')->find_many();
+            $app->render('admin_newuser.twig', array(
+                'kasutajanimi' => $_SESSION['username'],
+                'access' => $_SESSION['access'],
+                'randomparool' => rand(100000, 999999),
+                'kasutaja' => $kasutajad
+            ));
+        }
     }
     else{
         $app -> redirect('/mnrg/admin/login');
@@ -328,11 +364,21 @@ $app->get('/admin/new_user', 'admin_newuser');
 function admin_user_delete(){
     global $app;
     if(isset($_SESSION['username'])) {
-        $kasutaja = ORM::for_table('users')
-            ->where_equal('id', $_POST['id_delete'])
-            ->delete_many();
+        $kasutaja = ORM::for_table('users')->where_equal('name', $_SESSION['username'])->find_one();
+        $db_parool = $kasutaja->password;
+        $sisestatud_parool = sha1($_POST['yourpassword'] + $kasutaja->salt);
 
-        $app -> redirect('/mnrg/admin/new_user');
+        if($db_parool == $sisestatud_parool){
+            $kasutaja = ORM::for_table('users')
+                ->where_equal('id', $_POST['id_delete'])
+                ->delete_many();
+
+            $app -> redirect('/mnrg/admin/new_user');
+        }
+        else{
+            $app -> redirect('/mnrg/admin/new_user?error=2');
+        }
+
     }
     else{
         $app -> redirect('/mnrg/admin/login');
@@ -358,10 +404,19 @@ $app->post('/admin/new_user/delete', 'admin_user_delete');
 function admin_user_update(){
     global $app;
     if(isset($_SESSION['username'])) {
-        $kasutaja = ORM::for_table('users')->where_equal('id', $_POST['id_update'])->find_one();
-        $kasutaja->set('access', $_POST['access']);
-        $kasutaja->save();
-        $app -> redirect('/mnrg/admin/new_user');
+        $kasutaja = ORM::for_table('users')->where_equal('name', $_SESSION['username'])->find_one();
+        $db_parool = $kasutaja->password;
+        $sisestatud_parool = sha1($_POST['yourpassword'] + $kasutaja->salt);
+
+        if($db_parool == $sisestatud_parool){
+            $kasutaja = ORM::for_table('users')->where_equal('id', $_POST['id_update'])->find_one();
+            $kasutaja->set('access', $_POST['access']);
+            $kasutaja->save();
+            $app -> redirect('/mnrg/admin/new_user');
+        }
+        else{
+            $app -> redirect('/mnrg/admin/new_user?error=3');
+        }
     }
     else{
         $app -> redirect('/mnrg/admin/login');
@@ -385,18 +440,32 @@ $app->post('/admin/new_user/update', 'admin_user_update');
  */
 function admin_user_sisesta(){
     global $app;
-    $salt = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 5)), 0, 5); //Loob suvalise 5-margilise salti
-    $password = $_POST['password'];
-    $newpassword = sha1($password + $salt);
+    if(isset($_SESSION['username'])) {
+        $kasutaja = ORM::for_table('users')->where_equal('name', $_SESSION['username'])->find_one();
+        $db_parool = $kasutaja->password;
+        $sisestatud_parool = sha1($_POST['yourpassword'] + $kasutaja->salt);
 
-    $uuskasutaja = ORM::for_table('users')->create();
-    $uuskasutaja->name = $_POST['name'];
-    $uuskasutaja->email = $_POST['email'];
-    $uuskasutaja->password = $newpassword;
-    $uuskasutaja->salt = $salt;
-    $uuskasutaja->save();
+        if($db_parool == $sisestatud_parool){
+            $salt = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 5)), 0, 5); //Loob suvalise 5-margilise salti
+            $password = $_POST['password'];
+            $newpassword = sha1($password + $salt);
 
-    $app -> redirect('/mnrg/admin/new_user');
+            $uuskasutaja = ORM::for_table('users')->create();
+            $uuskasutaja->name = $_POST['name'];
+            $uuskasutaja->email = $_POST['email'];
+            $uuskasutaja->password = $newpassword;
+            $uuskasutaja->salt = $salt;
+            $uuskasutaja->save();
+
+            $app -> redirect('/mnrg/admin/new_user');
+        }
+        else{
+            $app -> redirect('/mnrg/admin/new_user?error=1');
+        }
+    }
+    else{
+        $app -> redirect('/mnrg/admin/login');
+    }
 }
 $app->post('/admin/new_user/sisesta', 'admin_user_sisesta');
 
@@ -453,13 +522,18 @@ $app->get('/admin/login/error', 'admin_login_error');
  */
 function admin_teated_sisesta(){
     global $app;
-    $teated = ORM::for_table('teated')->create();
-    $teated->username = $_SESSION['username'];
-    $teated->content = $_POST['content'];
-    $teated->date = date('l\, jS \of F Y H:i');
-    $teated->save();
+    if(isset($_SESSION['username'])) {
+        $teated = ORM::for_table('teated')->create();
+        $teated->username = $_SESSION['username'];
+        $teated->content = $_POST['content'];
+        $teated->date = date('l\, jS \of F Y H:i');
+        $teated->save();
 
-    $app -> redirect('/mnrg/admin/teated');
+        $app -> redirect('/mnrg/admin/teated');
+    }
+    else{
+        $app -> redirect('/mnrg/admin/login');
+    }
 }
 $app->post('/admin/teated/sisesta', 'admin_teated_sisesta');
 
@@ -477,12 +551,17 @@ $app->post('/admin/teated/sisesta', 'admin_teated_sisesta');
  */
 function admin_teated_kustuta(){
     global $app;
-    $id = $_GET['id'];
+    if(isset($_SESSION['username'])) {
+        $id = $_GET['id'];
 
-    $person = ORM::for_table('teated')
-        ->where_equal('id', $id)
-        ->delete_many();
-    $app -> redirect('/mnrg/admin/teated');
+        $person = ORM::for_table('teated')
+            ->where_equal('id', $id)
+            ->delete_many();
+        $app -> redirect('/mnrg/admin/teated');
+    }
+    else{
+        $app -> redirect('/mnrg/admin/login');
+    }
 }
 $app->get('/admin/teated/kustuta', 'admin_teated_kustuta');
 
@@ -503,30 +582,35 @@ $app->get('/admin/teated/kustuta', 'admin_teated_kustuta');
  */
 function admin_tunniplaan_sisesta(){
     global $app;
-    $klass = $_POST['klass'];
-    $paev = $_POST['paev'];
-    $tunnid = array($_POST['tund1'],$_POST['tund2'],$_POST['tund3'],$_POST['tund4'],$_POST['tund5'],$_POST['tund6'],$_POST['tund7'],$_POST['tund8'],$_POST['tund9'],$_POST['tund10']);
-    $ruumid = array($_POST['ruum1'],$_POST['ruum2'],$_POST['ruum3'],$_POST['ruum4'],$_POST['ruum5'],$_POST['ruum6'],$_POST['ruum7'],$_POST['ruum8'],$_POST['ruum9'],$_POST['ruum10']);
+    if(isset($_SESSION['username'])) {
+        $klass = $_POST['klass'];
+        $paev = $_POST['paev'];
+        $tunnid = array($_POST['tund1'],$_POST['tund2'],$_POST['tund3'],$_POST['tund4'],$_POST['tund5'],$_POST['tund6'],$_POST['tund7'],$_POST['tund8'],$_POST['tund9'],$_POST['tund10']);
+        $ruumid = array($_POST['ruum1'],$_POST['ruum2'],$_POST['ruum3'],$_POST['ruum4'],$_POST['ruum5'],$_POST['ruum6'],$_POST['ruum7'],$_POST['ruum8'],$_POST['ruum9'],$_POST['ruum10']);
 
-    //Kui on andmebaasis sellel klassil selle p2eva peal tunde, kustutab need
-    $vanad_tunnid = ORM::for_table('tunniplaan')
-        ->where_equal('klass', $klass, 'paev', $paev)
-        ->delete_many();
+        //Kui on andmebaasis sellel klassil selle p2eva peal tunde, kustutab need
+        $vanad_tunnid = ORM::for_table('tunniplaan')
+            ->where_equal('klass', $klass, 'paev', $paev)
+            ->delete_many();
 
-    //Lisab andmebaasi uued andmed
-    for( $n=0; $n<=9; $n++ ){
-        $tunniplaan = ORM::for_table('tunniplaan')->create();
-        if($tunnid[$n] != '') {
-            $tunniplaan->klass = $klass;
-            $tunniplaan->paev = $paev;
-            $tunniplaan->username = $_SESSION['username'];
-            $tunniplaan->tund_nr = $n + 1;
-            $tunniplaan->tund = $tunnid[$n];
-            $tunniplaan->ruum = $ruumid[$n];
-            $tunniplaan->save();
+        //Lisab andmebaasi uued andmed
+        for( $n=0; $n<=9; $n++ ){
+            $tunniplaan = ORM::for_table('tunniplaan')->create();
+            if($tunnid[$n] != '') {
+                $tunniplaan->klass = $klass;
+                $tunniplaan->paev = $paev;
+                $tunniplaan->username = $_SESSION['username'];
+                $tunniplaan->tund_nr = $n + 1;
+                $tunniplaan->tund = $tunnid[$n];
+                $tunniplaan->ruum = $ruumid[$n];
+                $tunniplaan->save();
+            }
         }
+        $app -> redirect('/mnrg/admin/tunniplaan');
     }
-    $app -> redirect('/mnrg/admin/tunniplaan');
+    else{
+        $app -> redirect('/mnrg/admin/login');
+    }
 }
 $app->post('/admin/tunniplaan/sisesta', 'admin_tunniplaan_sisesta');
 

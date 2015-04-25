@@ -5,6 +5,9 @@
 {% block content %}
         <div class='contentleft'>
             <h3>Uue kasutaja lisamine admin-paneelile</h3>
+            {% if error == 1 %}
+                <span style="color: darkred"><b>Sinu sisestatud parool oli vale!</b></span>
+            {% endif %}
             <form method='POST' action='/mnrg/admin/new_user/sisesta'>
                 <table border='0'>
                     <tr><td>Kasutajanimi</td><td><input type='text' name='name'></td></tr>
@@ -16,18 +19,30 @@
             </form>
 
             <h3>Admin-kasutaja eemaldamine</h3>
+            {% if error == 2 %}
+                <span style="color: darkred"><b>Sinu sisestatud parool oli vale!</b></span>
+            {% endif %}
             <form method='POST' action="/mnrg/admin/new_user/delete">
                 <table border="0">
                     <tr><td>Kasutaja ID</td><td><input type="text" name="id_delete"></td></tr>
+                    <tr><td>Sinu parool</td><td><input type='password' name='yourpassword'></td></tr>
                     <tr><td colspan="2"><button type="submit">Kustuta kasutaja</button></td></tr>
                 </table>
             </form>
 
             <h3>Admin-kasutaja access-level</h3>
+            {% if error == 3 %}
+                <span style="color: darkred"><b>Sinu sisestatud parool oli vale!</b></span>
+            {% endif %}
+            {% if error == 4 %}
+                <span style="color: darkred"><b>Sinu sisestatud kasutaja ID oli vale!</b></span>
+            {% endif %}
             <form method='POST' action="/mnrg/admin/new_user/update">
                 <table border="0">
                     <tr><td>Kasutaja ID</td><td><input type="text" name="id_update"></td></tr>
                     <tr><td>Access-level</td><td><input type="text" name="access"></td></tr>
+
+                    <tr><td>Sinu parool</td><td><input type='password' name='yourpassword'></td></tr>
                     <tr><td colspan="2"><button type="submit">Uuenda kasutajat</button></td></tr>
                 </table>
             </form>
